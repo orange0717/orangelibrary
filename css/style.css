@@ -1,21 +1,40 @@
 /* ═══════════════════════════════════════════════════
    OrangeLibrary Portal Hub — style.css
-   Design System: Orange Brand Family
+   Design System: Orange Brand Family (4 Services)
    ═══════════════════════════════════════════════════ */
 
 /* ── Reset & Base ── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
+  /* Brand Colors */
   --orange: #F29C68;
   --orange-light: #F5B88A;
   --orange-dark: #D9854E;
+
+  /* Service Accent Colors */
+  --blue: #4D8FCC;
+  --blue-light: #6BA8E0;
+  --blue-bg: #EBF3FB;
+  --green: #5BA87F;
+  --green-light: #78BF98;
+  --green-bg: #EDF7F1;
+  --purple: #8B6AAE;
+  --purple-light: #A485C4;
+  --purple-bg: #F2EDF7;
+  --orange-bg: #FFF0E6;
+
+  /* Backgrounds */
   --bg-warm: #FFF7F0;
   --bg-white: #FFFFFF;
   --bg-section: #FFF3EB;
+
+  /* Text */
   --text-primary: #0D0D0D;
   --text-secondary: #555;
   --text-muted: #888;
+
+  /* Misc */
   --border: #F0E0D0;
   --card-shadow: 0 4px 24px rgba(242,156,104,0.10);
   --card-hover-shadow: 0 12px 40px rgba(242,156,104,0.18);
@@ -200,7 +219,7 @@ img { max-width: 100%; display: block; }
 .hero-desc {
   font-size: 1.15rem;
   color: var(--text-secondary);
-  max-width: 500px;
+  max-width: 520px;
   margin: 0 auto 36px;
   line-height: 1.8;
 }
@@ -280,7 +299,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* ═══════════════════════════════════════════════════
-   SECTIONS (공통)
+   SECTIONS (common)
    ═══════════════════════════════════════════════════ */
 .section {
   padding: 100px 0;
@@ -313,7 +332,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* ═══════════════════════════════════════════════════
-   SERVICES
+   SERVICES — 2x2 Grid
    ═══════════════════════════════════════════════════ */
 .services {
   background: var(--bg-warm);
@@ -321,7 +340,7 @@ img { max-width: 100%; display: block; }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 28px;
 }
 
@@ -344,10 +363,15 @@ img { max-width: 100%; display: block; }
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--orange), var(--orange-light));
   opacity: 0;
   transition: opacity .3s;
 }
+
+/* Accent top bar per service */
+.service-card[data-accent="orange"]::before { background: linear-gradient(90deg, var(--orange), var(--orange-light)); }
+.service-card[data-accent="blue"]::before { background: linear-gradient(90deg, var(--blue), var(--blue-light)); }
+.service-card[data-accent="green"]::before { background: linear-gradient(90deg, var(--green), var(--green-light)); }
+.service-card[data-accent="purple"]::before { background: linear-gradient(90deg, var(--purple), var(--purple-light)); }
 
 .service-card:hover {
   transform: translateY(-8px);
@@ -367,6 +391,7 @@ img { max-width: 100%; display: block; }
   transform: translateY(-4px);
 }
 
+/* Service Icon */
 .service-icon {
   width: 64px;
   height: 64px;
@@ -377,14 +402,24 @@ img { max-width: 100%; display: block; }
   margin-bottom: 20px;
 }
 
+.service-icon.orange { background: var(--orange-bg); color: var(--orange); }
+.service-icon.blue { background: var(--blue-bg); color: var(--blue); }
+.service-icon.green { background: var(--green-bg); color: var(--green); }
+.service-icon.purple { background: var(--purple-bg); color: var(--purple); }
+
+/* Service Tag */
 .service-tag {
   font-size: 0.72rem;
   font-weight: 700;
-  color: var(--orange);
   letter-spacing: 1.5px;
   text-transform: uppercase;
   margin-bottom: 8px;
 }
+
+.service-tag.orange { color: var(--orange); }
+.service-tag.blue { color: var(--blue); }
+.service-tag.green { color: var(--green); }
+.service-tag.purple { color: var(--purple); }
 
 .service-name {
   font-family: var(--font-display);
@@ -402,6 +437,7 @@ img { max-width: 100%; display: block; }
   flex: 1;
 }
 
+/* Service Feature Tags */
 .service-features {
   display: flex;
   flex-wrap: wrap;
@@ -412,21 +448,29 @@ img { max-width: 100%; display: block; }
 .service-features span {
   font-size: 0.78rem;
   font-weight: 500;
-  color: var(--orange-dark);
-  background: rgba(242,156,104,0.1);
   padding: 5px 14px;
   border-radius: 20px;
 }
 
+.service-features span.orange { color: var(--orange-dark); background: rgba(242,156,104,0.1); }
+.service-features span.blue { color: var(--blue); background: rgba(77,143,204,0.1); }
+.service-features span.green { color: var(--green); background: rgba(91,168,127,0.1); }
+.service-features span.purple { color: var(--purple); background: rgba(139,106,174,0.1); }
+
+/* Service Link */
 .service-link {
   font-size: 0.92rem;
   font-weight: 600;
-  color: var(--orange);
   display: flex;
   align-items: center;
   gap: 6px;
   transition: gap .3s;
 }
+
+.service-link.orange { color: var(--orange); }
+.service-link.blue { color: var(--blue); }
+.service-link.green { color: var(--green); }
+.service-link.purple { color: var(--purple); }
 
 .service-card:hover .service-link {
   gap: 12px;
@@ -514,17 +558,39 @@ img { max-width: 100%; display: block; }
   box-shadow: var(--card-hover-shadow);
 }
 
-.flow-step.active {
+/* Flow step accent colors */
+.flow-step.active-orange {
   background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
   color: #fff;
 }
 
-.flow-step.active .flow-icon {
+.flow-step.active-blue {
+  background: linear-gradient(135deg, var(--blue) 0%, #3A7AB8 100%);
+  color: #fff;
+}
+
+.flow-step.active-green {
+  background: linear-gradient(135deg, var(--green) 0%, #498D6A 100%);
+  color: #fff;
+}
+
+.flow-step.active-purple {
+  background: linear-gradient(135deg, var(--purple) 0%, #72539A 100%);
+  color: #fff;
+}
+
+.flow-step.active-orange .flow-icon,
+.flow-step.active-blue .flow-icon,
+.flow-step.active-green .flow-icon,
+.flow-step.active-purple .flow-icon {
   background: rgba(255,255,255,0.25);
   color: #fff;
 }
 
-.flow-step.active p {
+.flow-step.active-orange p,
+.flow-step.active-blue p,
+.flow-step.active-green p,
+.flow-step.active-purple p {
   color: rgba(255,255,255,0.85);
 }
 
@@ -738,14 +804,8 @@ img { max-width: 100%; display: block; }
   color: rgba(255,255,255,0.3);
 }
 
-.footer-credit {
-  font-size: 0.72rem;
-  color: rgba(255,255,255,0.2);
-  margin-top: 8px;
-}
-
 /* ═══════════════════════════════════════════════════
-   ANIMATION (Fade in on scroll - optional)
+   ANIMATION
    ═══════════════════════════════════════════════════ */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
@@ -760,6 +820,7 @@ img { max-width: 100%; display: block; }
 
 .service-card:nth-child(2) { animation-delay: .1s; }
 .service-card:nth-child(3) { animation-delay: .2s; }
+.service-card:nth-child(4) { animation-delay: .3s; }
 
 .about-card:nth-child(2) { animation-delay: .1s; }
 .about-card:nth-child(3) { animation-delay: .2s; }
@@ -839,7 +900,7 @@ img { max-width: 100%; display: block; }
     margin-bottom: 40px;
   }
 
-  /* Services */
+  /* Services — 1 column on mobile */
   .services-grid {
     grid-template-columns: 1fr;
     gap: 20px;

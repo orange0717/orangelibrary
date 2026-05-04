@@ -7,37 +7,37 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  /* Brand Colors */
-  --orange: #F29C68;
-  --orange-light: #F5B88A;
-  --orange-dark: #D9854E;
+  /* Brand Colors — OrangeRefine dusty rose */
+  --orange: #BF8984;
+  --orange-light: #D4A8A3;
+  --orange-dark: #9C6B66;
 
-  /* Service Accent Colors */
-  --blue: #4D8FCC;
-  --blue-light: #6BA8E0;
-  --blue-bg: #EBF3FB;
-  --green: #5BA87F;
-  --green-light: #78BF98;
-  --green-bg: #EDF7F1;
-  --purple: #8B6AAE;
-  --purple-light: #A485C4;
-  --purple-bg: #F2EDF7;
-  --orange-bg: #FFF0E6;
+  /* Service Accent Colors — muted/dusty palette to harmonize with rose */
+  --blue: #8FA0B5;
+  --blue-light: #A8B6C7;
+  --blue-bg: #ECEFF4;
+  --green: #9CAA8B;
+  --green-light: #B3BFA4;
+  --green-bg: #EFF1EB;
+  --purple: #A48597;
+  --purple-light: #B89DAD;
+  --purple-bg: #F1EAEE;
+  --orange-bg: #F2E4DF;
 
   /* Backgrounds */
-  --bg-warm: #FFF7F0;
+  --bg-warm: #FBF6F4;
   --bg-white: #FFFFFF;
-  --bg-section: #FFF3EB;
+  --bg-section: #F5EDE9;
 
   /* Text */
-  --text-primary: #0D0D0D;
-  --text-secondary: #555;
-  --text-muted: #888;
+  --text-primary: #2A1F1D;
+  --text-secondary: #5C5048;
+  --text-muted: #8C7E78;
 
   /* Misc */
-  --border: #F0E0D0;
-  --card-shadow: 0 4px 24px rgba(242,156,104,0.10);
-  --card-hover-shadow: 0 12px 40px rgba(242,156,104,0.18);
+  --border: #E8D9D4;
+  --card-shadow: 0 4px 24px rgba(191,137,132,0.10);
+  --card-hover-shadow: 0 12px 40px rgba(191,137,132,0.20);
   --radius-card: 25px;
   --radius-btn: 50px;
   --font-sans: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -170,7 +170,7 @@ img { max-width: 100%; display: block; }
   right: -120px;
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(242,156,104,0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(191,137,132,0.14) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -182,14 +182,14 @@ img { max-width: 100%; display: block; }
   left: -80px;
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, rgba(242,156,104,0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(191,137,132,0.10) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
 
 .hero-badge {
   display: inline-block;
-  background: rgba(242,156,104,0.15);
+  background: rgba(191,137,132,0.16);
   color: var(--orange-dark);
   font-size: 0.82rem;
   font-weight: 600;
@@ -249,12 +249,12 @@ img { max-width: 100%; display: block; }
 .btn-primary {
   background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
   color: #fff;
-  box-shadow: 0 4px 16px rgba(242,156,104,0.3);
+  box-shadow: 0 4px 16px rgba(191,137,132,0.32);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(242,156,104,0.4);
+  box-shadow: 0 8px 28px rgba(191,137,132,0.42);
 }
 
 .btn-outline {
@@ -391,6 +391,23 @@ img { max-width: 100%; display: block; }
   transform: translateY(-4px);
 }
 
+/* 카드 우상단 국기 줄 (제3세계 문학출판사) */
+.card-flag-row {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  display: flex;
+  gap: 6px;
+  font-size: 1.15rem;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.08));
+}
+
+.service-desc strong {
+  color: var(--orange-dark);
+  font-weight: 700;
+}
+
 /* Service Icon */
 .service-icon {
   width: 64px;
@@ -452,10 +469,10 @@ img { max-width: 100%; display: block; }
   border-radius: 20px;
 }
 
-.service-features span.orange { color: var(--orange-dark); background: rgba(242,156,104,0.1); }
-.service-features span.blue { color: var(--blue); background: rgba(77,143,204,0.1); }
-.service-features span.green { color: var(--green); background: rgba(91,168,127,0.1); }
-.service-features span.purple { color: var(--purple); background: rgba(139,106,174,0.1); }
+.service-features span.orange { color: var(--orange-dark); background: rgba(191,137,132,0.12); }
+.service-features span.blue { color: var(--blue); background: rgba(143,160,181,0.14); }
+.service-features span.green { color: var(--green); background: rgba(156,170,139,0.14); }
+.service-features span.purple { color: var(--purple); background: rgba(164,133,151,0.14); }
 
 /* Service Link */
 .service-link {
@@ -565,17 +582,17 @@ img { max-width: 100%; display: block; }
 }
 
 .flow-step.active-blue {
-  background: linear-gradient(135deg, var(--blue) 0%, #3A7AB8 100%);
+  background: linear-gradient(135deg, var(--blue) 0%, #738499 100%);
   color: #fff;
 }
 
 .flow-step.active-green {
-  background: linear-gradient(135deg, var(--green) 0%, #498D6A 100%);
+  background: linear-gradient(135deg, var(--green) 0%, #7F8E70 100%);
   color: #fff;
 }
 
 .flow-step.active-purple {
-  background: linear-gradient(135deg, var(--purple) 0%, #72539A 100%);
+  background: linear-gradient(135deg, var(--purple) 0%, #876B7B 100%);
   color: #fff;
 }
 
@@ -598,7 +615,7 @@ img { max-width: 100%; display: block; }
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: rgba(242,156,104,0.12);
+  background: rgba(191,137,132,0.14);
   color: var(--orange);
   font-family: var(--font-display);
   font-size: 1rem;

@@ -341,24 +341,23 @@ img { max-width: 100%; display: block; }
   background: var(--bg-warm);
 }
 
+/* 3+2 레이아웃: 6열 트랙 위에 카드를 span 2씩 → 첫 줄 3개, 둘째 줄 2개 가운데 정렬 */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 28px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
 }
 
-/* 5번째 카드(파워콘텐츠 광고전문)는 2열 그리드 마지막 줄 가운데로 정렬 */
-.service-card-solo {
-  grid-column: 1 / -1;
-  max-width: calc((100% - 28px) / 2);
-  width: 100%;
-  margin: 0 auto;
+.service-card {
+  grid-column: span 2;
 }
 
-@media (max-width: 768px) {
-  .service-card-solo {
-    max-width: 100%;
-  }
+.service-card:nth-child(4) {
+  grid-column: 2 / span 2;
+}
+
+.service-card:nth-child(5) {
+  grid-column: 4 / span 2;
 }
 
 .service-card {
@@ -946,13 +945,16 @@ img { max-width: 100%; display: block; }
     margin-bottom: 40px;
   }
 
-  /* Services — 1 column on mobile */
+  /* Services — 1 column on mobile (6열 그리드 → 1열, span/column 리셋) */
   .services-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
 
-  .service-card {
+  .service-card,
+  .service-card:nth-child(4),
+  .service-card:nth-child(5) {
+    grid-column: auto;
     padding: 32px 24px 28px;
   }
 

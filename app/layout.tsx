@@ -73,6 +73,13 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    // 등록 후 발급받은 코드를 여기에 붙여넣으면 됩니다.
+    // google: "...",
+    other: {
+      // "naver-site-verification": "...",
+    },
+  },
   category: "publishing",
 };
 

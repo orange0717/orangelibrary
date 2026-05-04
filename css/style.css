@@ -22,6 +22,9 @@
   --purple: #A48597;
   --purple-light: #B89DAD;
   --purple-bg: #F1EAEE;
+  --amber: #C4986C;
+  --amber-light: #D6B28E;
+  --amber-bg: #F4EBDD;
   --orange-bg: #F2E4DF;
 
   /* Backgrounds */
@@ -344,6 +347,20 @@ img { max-width: 100%; display: block; }
   gap: 28px;
 }
 
+/* 5번째 카드(파워콘텐츠 광고전문)는 2열 그리드 마지막 줄 가운데로 정렬 */
+.service-card-solo {
+  grid-column: 1 / -1;
+  max-width: calc((100% - 28px) / 2);
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .service-card-solo {
+    max-width: 100%;
+  }
+}
+
 .service-card {
   background: var(--bg-white);
   border-radius: var(--radius-card);
@@ -372,6 +389,7 @@ img { max-width: 100%; display: block; }
 .service-card[data-accent="blue"]::before { background: linear-gradient(90deg, var(--blue), var(--blue-light)); }
 .service-card[data-accent="green"]::before { background: linear-gradient(90deg, var(--green), var(--green-light)); }
 .service-card[data-accent="purple"]::before { background: linear-gradient(90deg, var(--purple), var(--purple-light)); }
+.service-card[data-accent="amber"]::before { background: linear-gradient(90deg, var(--amber), var(--amber-light)); }
 
 .service-card:hover {
   transform: translateY(-8px);
@@ -391,16 +409,23 @@ img { max-width: 100%; display: block; }
   transform: translateY(-4px);
 }
 
-/* 카드 우상단 국기 줄 (제3세계 문학출판사) */
-.card-flag-row {
+/* 카드 우상단 배지 (제3세계 문학출판사 — 2026 출간 예정) */
+.card-badge {
   position: absolute;
   top: 18px;
   right: 22px;
-  display: flex;
-  gap: 6px;
-  font-size: 1.15rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 5px 12px;
+  border-radius: 20px;
   line-height: 1;
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.08));
+}
+
+.card-badge.purple {
+  color: var(--purple);
+  background: var(--purple-bg);
+  border: 1px solid rgba(164,133,151,0.25);
 }
 
 .service-desc strong {
@@ -423,6 +448,7 @@ img { max-width: 100%; display: block; }
 .service-icon.blue { background: var(--blue-bg); color: var(--blue); }
 .service-icon.green { background: var(--green-bg); color: var(--green); }
 .service-icon.purple { background: var(--purple-bg); color: var(--purple); }
+.service-icon.amber { background: var(--amber-bg); color: var(--amber); }
 
 /* Service Tag */
 .service-tag {
@@ -437,6 +463,7 @@ img { max-width: 100%; display: block; }
 .service-tag.blue { color: var(--blue); }
 .service-tag.green { color: var(--green); }
 .service-tag.purple { color: var(--purple); }
+.service-tag.amber { color: var(--amber); }
 
 .service-name {
   font-family: var(--font-display);
@@ -473,6 +500,7 @@ img { max-width: 100%; display: block; }
 .service-features span.blue { color: var(--blue); background: rgba(143,160,181,0.14); }
 .service-features span.green { color: var(--green); background: rgba(156,170,139,0.14); }
 .service-features span.purple { color: var(--purple); background: rgba(164,133,151,0.14); }
+.service-features span.amber { color: var(--amber); background: rgba(196,152,108,0.14); }
 
 /* Service Link */
 .service-link {
@@ -488,6 +516,7 @@ img { max-width: 100%; display: block; }
 .service-link.blue { color: var(--blue); }
 .service-link.green { color: var(--green); }
 .service-link.purple { color: var(--purple); }
+.service-link.amber { color: var(--amber); }
 
 .service-card:hover .service-link {
   gap: 12px;

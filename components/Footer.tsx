@@ -44,7 +44,7 @@ export default function Footer() {
               Company
             </p>
             <div className="mt-4 space-y-1.5 text-[13px] leading-[1.7] text-muted">
-              <p>주식회사 오렌지마케팅 · 대표 한미선</p>
+              <p>주식회사 오렌지도서관 · 대표 한미선</p>
               <p>사업자등록번호 618-81-36889</p>
               <p>통신판매번호 2025-충남천안-0444</p>
               <p className="pt-2">
@@ -60,7 +60,7 @@ export default function Footer() {
         </div>
 
         <p className="mt-12 border-t border-border pt-6 text-[12px] text-muted-soft">
-          © {new Date().getFullYear()} 주식회사 오렌지마케팅. All rights reserved.
+          © {new Date().getFullYear()} 주식회사 오렌지도서관. All rights reserved.
         </p>
       </div>
     </footer>

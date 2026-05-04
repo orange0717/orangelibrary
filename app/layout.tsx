@@ -43,9 +43,9 @@ export const metadata: Metadata = {
     "파워콘텐츠 광고",
     "출판사",
   ],
-  authors: [{ name: "주식회사 오렌지마케팅" }],
-  creator: "주식회사 오렌지마케팅",
-  publisher: "주식회사 오렌지마케팅",
+  authors: [{ name: "주식회사 오렌지도서관" }],
+  creator: "주식회사 오렌지도서관",
+  publisher: "주식회사 오렌지도서관",
   alternates: {
     canonical: SITE_URL,
   },
@@ -90,7 +90,7 @@ export default function RootLayout({
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "주식회사 오렌지마케팅",
+    name: "주식회사 오렌지도서관",
     alternateName: "오렌지도서관",
     url: SITE_URL,
     logo: `${SITE_URL}/logo.png`,

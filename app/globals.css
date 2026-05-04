@@ -1,17 +1,22 @@
 @import "tailwindcss";
 
-:root {
-  --background: #FFF9F4;
-  --foreground: #1F1611;
-  --muted: #6B5B4F;
-  --muted-soft: #8A7868;
-  --border: #EAD9C8;
-  --card: #FFFFFF;
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 
-  --primary: #F29C68;
-  --primary-dark: #D87A45;
-  --primary-light: #FBC9A6;
-  --primary-soft: #FFF1E6;
+:root {
+  --background: #F2F2F2;
+  --surface: #ffffff;
+  --surface-soft: #faf8f6;
+  --foreground: #1a1a1a;
+  --muted: #666666;
+  --muted-soft: #999999;
+  --border: #f0e6dd;
+  --border-strong: #D9B7B0;
+
+  --primary: #BF8C80;
+  --primary-dark: #A57569;
+  --primary-soft: #FFF0E5;
+  --primary-bg: #FDE8D4;
+  --primary-light: #FFF8F2;
 
   --accent-red: #D32F2F;
   --accent-green: #388E3C;
@@ -20,17 +25,20 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-soft: var(--surface-soft);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-muted-soft: var(--muted-soft);
   --color-border: var(--border);
-  --color-card: var(--card);
+  --color-border-strong: var(--border-strong);
   --color-primary: var(--primary);
   --color-primary-dark: var(--primary-dark);
-  --color-primary-light: var(--primary-light);
   --color-primary-soft: var(--primary-soft);
-  --font-sans: var(--font-noto-sans-kr);
-  --font-display: var(--font-playfair);
+  --color-primary-bg: var(--primary-bg);
+  --color-primary-light: var(--primary-light);
+  --font-sans: "Pretendard Variable", Pretendard, var(--font-noto-sans-kr);
+  --font-serif: var(--font-noto-serif-kr);
 }
 
 html {
@@ -40,12 +48,12 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-noto-sans-kr), -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+  font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: var(--primary-light);
+  background: var(--primary-soft);
   color: var(--foreground);
 }

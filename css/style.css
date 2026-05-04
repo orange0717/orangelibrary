@@ -7,10 +7,10 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  /* Brand Colors — OrangeRefine 실제 토큰 */
-  --orange: #BF8C80;
-  --orange-light: #D9B7B0;
-  --orange-dark: #9E6E5E;
+  /* Brand Colors — orangemarketing.co.kr 실제 토큰 */
+  --orange: #F2B6A0;
+  --orange-light: #F2DBCE;
+  --orange-dark: #E0A490;
 
   /* Service Accent Colors — muted/dusty palette to harmonize with rose */
   --blue: #8FA0B5;
@@ -25,22 +25,22 @@
   --amber: #C4986C;
   --amber-light: #D6B28E;
   --amber-bg: #F4EBDD;
-  --orange-bg: #FFF2E6;
+  --orange-bg: #FFE9DA;
 
-  /* Backgrounds — OrangeRefine 톤 매칭 */
-  --bg-warm: #FCF6F2;
+  /* Backgrounds — orangemarketing 톤 매칭 */
+  --bg-warm: #FFF5ED;
   --bg-white: #FFFFFF;
-  --bg-section: #F5F0EC;
+  --bg-section: #F2DBCE;
 
   /* Text */
-  --text-primary: #2A1F1D;
-  --text-secondary: #5C5048;
-  --text-muted: #8C7E78;
+  --text-primary: #1a1a1a;
+  --text-secondary: #555;
+  --text-muted: #888;
 
   /* Misc */
-  --border: #D9B7B0;
-  --card-shadow: 0 4px 24px rgba(191,140,128,0.10);
-  --card-hover-shadow: 0 12px 40px rgba(191,140,128,0.20);
+  --border: #F2DBCE;
+  --card-shadow: 0 4px 24px rgba(242,182,160,0.10);
+  --card-hover-shadow: 0 12px 40px rgba(242,182,160,0.20);
   --radius-card: 25px;
   --radius-btn: 50px;
   --font-sans: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -173,7 +173,7 @@ img { max-width: 100%; display: block; }
   right: -120px;
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(191,140,128,0.14) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(242,182,160,0.14) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -185,14 +185,14 @@ img { max-width: 100%; display: block; }
   left: -80px;
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, rgba(191,140,128,0.10) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(242,182,160,0.10) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
 
 .hero-badge {
   display: inline-block;
-  background: rgba(191,140,128,0.16);
+  background: rgba(242,182,160,0.16);
   color: var(--orange-dark);
   font-size: 0.82rem;
   font-weight: 600;
@@ -252,12 +252,12 @@ img { max-width: 100%; display: block; }
 .btn-primary {
   background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
   color: #fff;
-  box-shadow: 0 4px 16px rgba(191,140,128,0.32);
+  box-shadow: 0 4px 16px rgba(242,182,160,0.32);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(191,140,128,0.42);
+  box-shadow: 0 8px 28px rgba(242,182,160,0.42);
 }
 
 .btn-outline {
@@ -496,7 +496,7 @@ img { max-width: 100%; display: block; }
   border-radius: 20px;
 }
 
-.service-features span.orange { color: var(--orange-dark); background: rgba(191,140,128,0.12); }
+.service-features span.orange { color: var(--orange-dark); background: rgba(242,182,160,0.12); }
 .service-features span.blue { color: var(--blue); background: rgba(143,160,181,0.14); }
 .service-features span.green { color: var(--green); background: rgba(156,170,139,0.14); }
 .service-features span.purple { color: var(--purple); background: rgba(164,133,151,0.14); }
@@ -644,7 +644,7 @@ img { max-width: 100%; display: block; }
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: rgba(191,140,128,0.14);
+  background: rgba(242,182,160,0.14);
   color: var(--orange);
   font-family: var(--font-display);
   font-size: 1rem;

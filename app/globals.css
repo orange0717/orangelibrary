@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FFF9F4;
+  --foreground: #1F1611;
+  --muted: #6B5B4F;
+  --muted-soft: #8A7868;
+  --border: #EAD9C8;
+  --card: #FFFFFF;
+
+  --primary: #F29C68;
+  --primary-dark: #D87A45;
+  --primary-light: #FBC9A6;
+  --primary-soft: #FFF1E6;
+
+  --accent-red: #D32F2F;
+  --accent-green: #388E3C;
+  --accent-purple: #7B1FA2;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-soft: var(--muted-soft);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
+  --color-primary-soft: var(--primary-soft);
+  --font-sans: var(--font-noto-sans-kr);
+  --font-display: var(--font-playfair);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-noto-sans-kr), -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--primary-light);
+  color: var(--foreground);
+}

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s | 오렌지도서관",
   },
   description:
-    "네이버 도서리뷰 인플루언서가 직접 운영하는 통합 플랫폼. 카자흐스탄·말레이시아·루마니아 문학 출판, AI 글쓰기 도구 OrangeRefine, 인플루언서 분석 N인플까지.",
+    "네이버 도서리뷰 인플루언서가 운영하는 출판·AI 글쓰기 OrangeRefine·인플루언서 분석 N인플 통합 플랫폼.",
   keywords: [
     "오렌지도서관",
     "도서리뷰 인플루언서",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     siteName: "오렌지도서관",
     title: "오렌지도서관 | 책과 글, 그리고 세계 문학",
     description:
-      "네이버 도서리뷰 인플루언서가 직접 운영하는 통합 플랫폼. 출판·AI 글쓰기·인플루언서 분석을 한 곳에서.",
+      "네이버 도서리뷰 인플루언서가 운영하는 출판·AI 글쓰기 OrangeRefine·인플루언서 분석 N인플 통합 플랫폼.",
   },
   twitter: {
     card: "summary_large_image",

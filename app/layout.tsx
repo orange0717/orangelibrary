@@ -75,7 +75,7 @@ export const metadata: Metadata = {
   },
   verification: {
     other: {
-      "naver-site-verification": "naverd4fdab893d8ce2113cd975b81f42c636",
+      "naver-site-verification": "naver4d2d32e35886b0a3068899fbf8c8621d",
     },
   },
   category: "publishing",
@@ -95,10 +95,17 @@ export default function RootLayout({
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${SITE_URL}/#organization`,
     name: "주식회사 오렌지도서관",
     alternateName: "오렌지도서관",
     url: SITE_URL,
-    logo: `${SITE_URL}/logo.png`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/icon`,
+      width: 256,
+      height: 256,
+    },
+    image: `${SITE_URL}/opengraph-image`,
     description:
       "도서리뷰 인플루언서, 제3세계 문학 출판, AI 한국어 교정, 인플루언서 분석을 운영하는 통합 플랫폼",
     foundingDate: "2022",
@@ -125,6 +132,19 @@ export default function RootLayout({
     ],
   };
 
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    url: SITE_URL,
+    name: "오렌지도서관",
+    alternateName: ["OrangeLibrary", "오렌지 도서관"],
+    description:
+      "도서리뷰 인플루언서, 제3세계 문학 출판, AI 한국어 교정, 인플루언서 분석을 운영하는 통합 플랫폼",
+    inLanguage: "ko-KR",
+    publisher: { "@id": `${SITE_URL}/#organization` },
+  };
+
   return (
     <html
       lang="ko"
@@ -134,6 +154,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <Header />
         <main className="flex-1">{children}</main>

@@ -74,10 +74,8 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    // 등록 후 발급받은 코드를 여기에 붙여넣으면 됩니다.
-    // google: "...",
     other: {
-      // "naver-site-verification": "...",
+      "naver-site-verification": "naverd4fdab893d8ce2113cd975b81f42c636",
     },
   },
   category: "publishing",

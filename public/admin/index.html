@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T9GRF29N');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OrangeLibrary 관리자</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23BF8C80'/%3E%3Ctext x='50' y='75' text-anchor='middle' font-family='Georgia,serif' font-size='72' font-weight='bold' fill='white'%3E文%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#BF8C80;--deep:#B8612A;--dark:#BF8C80;--bg:#F2F2F2;--border:#D9B7B0;--font:'Noto Sans KR',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:var(--font);background:#f5f5f5;color:#333;min-height:100vh;}
+
+/* 로그인 */
+.admin-login{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg);}
+.admin-login-box{background:#fff;border-radius:20px;padding:40px 32px;max-width:380px;width:90%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.08);}
+.admin-login-box h1{font-size:24px;font-weight:800;margin-bottom:6px;}
+.admin-login-box p{font-size:13px;color:#999;margin-bottom:24px;}
+.admin-login-box input{width:100%;padding:12px 16px;border:1.5px solid #e0e0e0;border-radius:10px;font-size:14px;font-family:var(--font);margin-bottom:12px;}
+.admin-login-box input:focus{outline:none;border-color:var(--orange);}
+.admin-login-box button{width:100%;padding:12px;background:var(--orange);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);}
+.admin-login-box button:hover{background:var(--dark);}
+
+/* 레이아웃 */
+.admin-wrap{display:none;min-height:100vh;}
+.admin-sidebar{position:fixed;left:0;top:0;bottom:0;width:220px;background:#1a1a1a;color:#fff;padding:20px 0;overflow-y:auto;z-index:100;}
+.admin-sidebar-logo{display:flex;align-items:center;gap:8px;padding:0 20px 20px;border-bottom:1px solid #333;}
+.admin-sidebar-logo span:first-child{font-size:20px;font-weight:900;color:var(--orange);}
+.admin-sidebar-logo span:last-child{font-size:14px;font-weight:700;}
+.admin-nav{padding:16px 0;}
+.admin-nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:13px;color:#999;cursor:pointer;transition:all .15s;border:none;background:none;width:100%;text-align:left;font-family:var(--font);}
+.admin-nav-item:hover{color:#fff;background:rgba(255,255,255,0.05);}
+.admin-nav-item.on{color:var(--orange);background:rgba(204,148,134,0.1);font-weight:700;}
+.admin-nav-item .nav-icon{font-size:16px;width:20px;text-align:center;}
+.admin-main{margin-left:220px;padding:24px;min-height:100vh;background:#f5f5f5;}
+.admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
+.admin-header h2{font-size:20px;font-weight:800;color:#0D0D0D;}
+.admin-logout{padding:8px 16px;background:none;border:1px solid #ddd;border-radius:8px;font-size:12px;color:#888;cursor:pointer;font-family:var(--font);}
+
+/* 카드 */
+.stat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px;}
+.stat-card{background:#fff;border-radius:14px;padding:20px;border:1px solid #f0f0f0;}
+.stat-card-label{font-size:12px;color:#999;margin-bottom:4px;}
+.stat-card-value{font-size:28px;font-weight:800;color:#0D0D0D;}
+.stat-card-sub{font-size:11px;color:#aaa;margin-top:4px;}
+
+/* 테이블 */
+.admin-panel{background:#fff;border-radius:14px;border:1px solid #f0f0f0;overflow:hidden;margin-bottom:24px;}
+.admin-panel-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid #f0f0f0;}
+.admin-panel-title{font-size:15px;font-weight:700;}
+.admin-search{padding:8px 14px;border:1px solid #e0e0e0;border-radius:8px;font-size:13px;font-family:var(--font);width:240px;}
+.admin-search:focus{outline:none;border-color:var(--orange);}
+table{width:100%;border-collapse:collapse;}
+th{text-align:left;padding:10px 16px;font-size:12px;font-weight:600;color:#999;border-bottom:1px solid #f0f0f0;background:#fafafa;}
+td{padding:10px 16px;font-size:13px;border-bottom:1px solid #f8f8f8;}
+tr:hover td{background:#fafafa;}
+.badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;}
+.badge-active{background:#f0fdf4;color:#166534;}
+.badge-inactive{background:#fef2f2;color:#991b1b;}
+
+/* 탭 콘텐츠 */
+.admin-tab{display:none;}
+.admin-tab.on{display:block;}
+
+/* 문의 */
+.inquiry-card{padding:16px 20px;border-bottom:1px solid #f0f0f0;}
+.inquiry-card:last-child{border-bottom:none;}
+.inquiry-meta{display:flex;gap:12px;font-size:11px;color:#999;margin-bottom:6px;}
+.inquiry-text{font-size:13px;line-height:1.6;color:#333;}
+.inquiry-reply{margin-top:8px;padding:10px 12px;background:#F2F2F2;border-radius:8px;font-size:12px;color:var(--deep);}
+.reply-input{width:100%;padding:8px 12px;border:1px solid #e0e0e0;border-radius:8px;font-size:12px;font-family:var(--font);margin-top:8px;}
+.reply-btn{margin-top:6px;padding:6px 14px;background:var(--orange);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);}
+
+/* 모달 */
+.admin-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:9999;align-items:center;justify-content:center;}
+.admin-modal-overlay.show{display:flex;}
+.admin-modal{background:#fff;border-radius:16px;padding:28px 24px;max-width:480px;width:90%;max-height:80vh;overflow-y:auto;}
+.admin-modal h3{font-size:17px;font-weight:700;margin-bottom:16px;}
+.admin-modal label{display:block;font-size:12px;font-weight:600;color:#888;margin:12px 0 4px;}
+.admin-modal input,.admin-modal textarea,.admin-modal select{width:100%;padding:10px 12px;border:1px solid #e0e0e0;border-radius:8px;font-size:13px;font-family:var(--font);}
+.admin-modal textarea{resize:vertical;min-height:80px;}
+.admin-modal-actions{display:flex;gap:10px;margin-top:20px;}
+.admin-modal-actions button{flex:1;padding:10px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);}
+.btn-cancel{background:#f5f5f5;border:1px solid #e0e0e0;color:#666;}
+.btn-primary{background:var(--orange);border:none;color:#fff;}
+
+/* 공지 */
+.notice-item{padding:14px 20px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;}
+.notice-item:last-child{border-bottom:none;}
+.notice-title{font-size:13px;font-weight:600;}
+.notice-date{font-size:11px;color:#999;}
+.notice-del{padding:4px 10px;background:none;border:1px solid #e0e0e0;border-radius:6px;font-size:11px;color:#999;cursor:pointer;font-family:var(--font);}
+
+/* 반응형 */
+@media(max-width:768px){
+  .admin-sidebar{width:60px;padding:12px 0;}
+  .admin-sidebar-logo span:last-child,.admin-nav-item span:not(.nav-icon){display:none;}
+  .admin-nav-item{justify-content:center;padding:12px;}
+  .admin-main{margin-left:60px;padding:16px;}
+  .stat-cards{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:640px){
+  .admin-sidebar{width:50px;}
+  .admin-main{margin-left:50px;padding:12px;}
+  .admin-header{flex-wrap:wrap;gap:10px;}
+  .admin-header h2{font-size:17px;}
+  .stat-cards{grid-template-columns:1fr;gap:10px;margin-bottom:16px;}
+  .stat-card{padding:14px 16px;}
+  .stat-card-value{font-size:22px;}
+  .admin-panel-header{flex-wrap:wrap;gap:8px;padding:12px 14px;}
+  .admin-search{width:100%;}
+  th,td{padding:8px 10px;font-size:12px;}
+  .admin-panel{border-radius:10px;}
+  .admin-modal{padding:20px 16px;width:94%;border-radius:12px;}
+}
+@media(max-width:380px){
+  .admin-sidebar{width:44px;}
+  .admin-main{margin-left:44px;padding:10px;}
+  .admin-nav-item{padding:10px 8px;}
+  .admin-nav-item .nav-icon{font-size:14px;}
+  .admin-header h2{font-size:15px;}
+  .stat-card-value{font-size:20px;}
+  th,td{padding:6px 8px;font-size:11px;}
+}
+.sp-filter-btn,.ref-period-btn{padding:5px 12px;background:#f5f5f5;border:1px solid #e0e0e0;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);color:#999;transition:all .15s}
+.sp-filter-btn.on,.sp-filter-btn:hover,.ref-period-btn.on,.ref-period-btn:hover{background:var(--orange);color:#fff;border-color:var(--orange)}
+.ref-bar-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.ref-bar-label{font-size:13px;color:#333;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ref-bar-wrap{width:80px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden;margin:0 10px;}
+.ref-tree-row{font-size:13px;border-bottom:1px solid #f5f5f5;}
+.ref-tree-domain{display:flex;align-items:center;justify-content:space-between;padding:6px 0;cursor:pointer;font-weight:600;color:#333;}
+.ref-tree-domain:hover{color:var(--orange);}
+.ref-tree-domain .ref-tree-arrow{font-size:10px;color:#999;margin-right:6px;transition:transform .15s;}
+.ref-tree-domain.open .ref-tree-arrow{transform:rotate(90deg);}
+.ref-tree-paths{display:none;padding:4px 0 8px 18px;background:#fafafa;}
+.ref-tree-domain.open + .ref-tree-paths{display:block;}
+.ref-tree-path{display:flex;align-items:center;justify-content:space-between;padding:3px 6px;font-size:12px;color:#666;}
+.ref-tree-path-text{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:ui-monospace,monospace;}
+.ref-tree-path-count{color:#999;margin-left:8px;font-weight:600;}
+.ref-keyword-toggle{font-size:11px;color:var(--orange);cursor:pointer;margin-left:8px;font-weight:600;}
+.ref-keyword-list{display:none;padding:8px 0 8px 18px;background:#fafafa;border-radius:4px;margin-top:4px;}
+.ref-keyword-list.open{display:block;}
+.ref-keyword-item{display:flex;justify-content:space-between;font-size:12px;padding:3px 6px;color:#555;}
+.ref-keyword-item .kw-text{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ref-keyword-item .kw-count{color:#999;font-weight:600;margin-left:8px;}
+.ref-bar-fill{height:100%;background:var(--orange);border-radius:3px;}
+.ref-bar-count{font-size:12px;color:#999;font-weight:700;width:40px;text-align:right;}
+.sp-status{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
+.sp-status.pending{background:#FFF3E0;color:#E65100}
+.sp-status.approved{background:#E8F5E9;color:#2E7D32}
+.sp-status.rejected{background:#FFEBEE;color:#C62828}
+.sp-action-btn{padding:4px 12px;border:none;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font);transition:opacity .15s}
+.sp-approve{background:#2E7D32;color:#fff}
+.sp-reject{background:#C62828;color:#fff}
+.sp-action-btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* ── 출판대행 검수 (pa-*) ── */
+.pa-toolbar{background:#fff;border:1px solid #E6D4CC;border-radius:12px;padding:14px 18px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.pa-filter{display:flex;gap:6px;flex-wrap:wrap;}
+.pa-chip{padding:6px 14px;border-radius:50px;background:#fff;color:#666;border:1px solid #E6D4CC;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);}
+.pa-chip.on{background:#BF8C80;color:#fff;border-color:#BF8C80;}
+.pa-chip .cnt{margin-left:4px;font-weight:800;font-size:11px;opacity:.85;}
+.pa-list{display:flex;flex-direction:column;gap:8px;}
+.pa-item{background:#fff;border:1px solid #E6D4CC;border-radius:12px;padding:14px 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;cursor:pointer;transition:all .12s;}
+.pa-item:hover{border-color:#BF8C80;transform:translateY(-1px);box-shadow:0 4px 12px rgba(204,148,134,.1);}
+.pa-item-main{flex:1;min-width:0;}
+.pa-item-title{font-size:14px;font-weight:700;color:#0D0D0D;margin-bottom:3px;font-family:'Noto Serif KR',serif;}
+.pa-item-meta{font-size:11.5px;color:#999;line-height:1.7;}
+.pa-item-meta .author{font-weight:600;color:#666;}
+.pa-item-side{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.pa-status{display:inline-block;font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:50px;letter-spacing:.3px;white-space:nowrap;}
+.pa-status.submitted{background:#FFF7F0;color:#BF8C80;}
+.pa-status.under_review{background:#FFF3E0;color:#BF6B3A;}
+.pa-status.contracted{background:#E3F2FD;color:#1565C0;}
+.pa-status.in_production{background:#E3F2FD;color:#1976D2;}
+.pa-status.submitted_to_millie{background:#E1F5FE;color:#0288D1;}
+.pa-status.live{background:#E8F5E9;color:#2E7D32;}
+.pa-status.settled{background:#E8F5E9;color:#388E3C;}
+.pa-status.rejected{background:#FFEBEE;color:#C62828;}
+.pa-status.cancelled{background:#F5F5F5;color:#757575;}
+.pa-status.terminated{background:#F5F5F5;color:#616161;}
+.pa-empty{padding:60px 20px;text-align:center;color:#bbb;font-size:13px;background:#fff;border:1px dashed #E6D4CC;border-radius:12px;}
+.pa-loading{padding:60px 20px;text-align:center;color:#bbb;font-size:13px;}
+.pa-loading .spinner{display:inline-block;width:24px;height:24px;border:3px solid #FDE4CF;border-top-color:#BF8C80;border-radius:50%;animation:pa-spin 0.8s linear infinite;}
+@keyframes pa-spin{to{transform:rotate(360deg);}}
+.pa-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:10020;align-items:center;justify-content:center;padding:20px;overflow-y:auto;}
+.pa-modal-overlay.show{display:flex;}
+.pa-modal{background:#fff;border-radius:16px;max-width:780px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+.pa-modal-h{padding:20px 24px;border-bottom:1px solid #E6D4CC;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;}
+.pa-modal-h h2{font-size:18px;font-weight:800;color:#0D0D0D;margin-bottom:4px;font-family:'Noto Serif KR',serif;line-height:1.4;}
+.pa-modal-h .meta{font-size:11.5px;color:#999;}
+.pa-modal-close{background:transparent;border:none;font-size:22px;color:#999;cursor:pointer;line-height:1;padding:4px;}
+.pa-modal-body{padding:18px 24px;}
+.pa-section-h{font-size:11px;font-weight:800;color:#BF8C80;letter-spacing:.4px;text-transform:uppercase;margin:18px 0 10px;padding-bottom:4px;border-bottom:1px solid #E6D4CC;}
+.pa-section-h:first-child{margin-top:0;}
+.pa-kv{display:grid;grid-template-columns:120px 1fr;gap:6px 14px;font-size:13px;line-height:1.6;}
+.pa-kv dt{color:#888;}
+.pa-kv dd{color:#222;word-break:break-all;}
+.pa-files{display:flex;flex-direction:column;gap:6px;}
+.pa-files a{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:#FFF7F0;border:1px solid #E6D4CC;border-radius:8px;font-size:12.5px;color:#BF8C80;text-decoration:none;font-weight:600;}
+.pa-files a:hover{background:#FDE4CF;}
+.pa-files .none{color:#bbb;font-size:12px;font-style:italic;}
+.pa-modal-actions{padding:16px 24px;border-top:1px solid #E6D4CC;background:#FAFAFA;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.pa-modal .btn{padding:9px 18px;border:1px solid #E6D4CC;border-radius:8px;background:#fff;color:#666;font-size:12.5px;font-weight:700;cursor:pointer;font-family:var(--font);}
+.pa-modal .btn:hover{border-color:#BF8C80;color:#BF8C80;}
+.pa-modal .btn.primary{background:#BF8C80;color:#fff;border-color:#BF8C80;}
+.pa-modal .btn.primary:hover{background:#A87468;color:#fff;}
+.pa-modal .btn.danger{color:#C62828;border-color:#FFCDD2;}
+.pa-modal .btn.danger:hover{background:#FFEBEE;border-color:#C62828;}
+.pa-reject-input{display:none;margin-top:14px;padding:14px;background:#FFEBEE;border:1px solid #FFCDD2;border-radius:8px;}
+.pa-reject-input textarea{width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:13px;font-family:var(--font);outline:none;color:#333;resize:vertical;min-height:60px;box-sizing:border-box;}
+.pa-reject-input textarea:focus{border-color:#C62828;}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T9GRF29N"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- 관리자 로그인 -->
+<div class="admin-login" id="adminLogin">
+  <div class="admin-login-box">
+    <div style="font-size:32px;font-weight:900;color:var(--orange);margin-bottom:8px;">文</div>
+    <h1>OrangeLibrary 관리자</h1>
+    <p>관리자 비밀번호를 입력하세요.</p>
+    <input type="password" id="adminPw" placeholder="비밀번호" onkeydown="if(event.key==='Enter')adminAuth()">
+    <button onclick="adminAuth()">로그인</button>
+    <div style="margin:14px 0 8px;display:flex;align-items:center;gap:10px;color:#bbb;font-size:11px;">
+      <span style="flex:1;height:1px;background:#eee;"></span>또는<span style="flex:1;height:1px;background:#eee;"></span>
+    </div>
+    <button onclick="googleLoginAdmin()" style="background:#fff;color:#3C4043;border:1px solid #E0E0E0;display:flex;align-items:center;justify-content:center;gap:10px;">
+      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571.001-.001.002-.001.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
+      Google로 로그인
+    </button>
+    <div id="adminErr" style="display:none;font-size:12px;color:#B8612A;margin-top:10px;"></div>
+    <div style="margin-top:16px;"><a href="javascript:void(0)" onclick="resetAdminPassword()" style="font-size:12px;color:#999;text-decoration:underline;">비밀번호를 잊으셨나요?</a></div>
+  </div>
+</div>
+
+<!-- 관리자 패널 -->
+<div class="admin-wrap" id="adminWrap">
+  <!-- 사이드바 -->
+  <div class="admin-sidebar">
+    <div class="admin-sidebar-logo">
+      <span>文</span>
+      <span>OrangeLibrary</span>
+    </div>
+    <nav class="admin-nav">
+      <button class="admin-nav-item on" data-tab="dashboard" onclick="setAdminTab('dashboard')">
+        <span class="nav-icon">+</span><span>대시보드</span>
+      </button>
+      <button class="admin-nav-item" data-tab="members" onclick="setAdminTab('members')">
+        <span class="nav-icon">U</span><span>회원 관리</span>
+      </button>
+      <button class="admin-nav-item" data-tab="inquiries" onclick="setAdminTab('inquiries')">
+        <span class="nav-icon">?</span><span>고객 문의</span>
+      </button>
+      <button class="admin-nav-item" data-tab="spellcheck" onclick="setAdminTab('spellcheck')">
+        <span class="nav-icon">文</span><span>1:1 맞춤법</span>
+      </button>
+      <button class="admin-nav-item" data-tab="reports" onclick="setAdminTab('reports')">
+        <span class="nav-icon">!</span><span>맞춤법 제보</span>
+      </button>
+      <button class="admin-nav-item" data-tab="spacing-exceptions" onclick="setAdminTab('spacing-exceptions')">
+        <span class="nav-icon">文</span><span>교정 예외</span>
+      </button>
+      <button class="admin-nav-item" data-tab="demo" onclick="setAdminTab('demo')">
+        <span class="nav-icon">D</span><span>데모체험</span>
+      </button>
+      <button class="admin-nav-item" data-tab="review-board" onclick="setAdminTab('review-board')">
+        <span class="nav-icon">★</span><span>후기</span>
+      </button>
+      <button class="admin-nav-item" data-tab="points" onclick="setAdminTab('points')">
+        <span class="nav-icon">文</span><span>文 관리</span>
+      </button>
+      <button class="admin-nav-item" data-tab="notices" onclick="setAdminTab('notices')">
+        <span class="nav-icon">!</span><span>공지사항</span>
+      </button>
+      <button class="admin-nav-item" data-tab="stats" onclick="setAdminTab('stats')">
+        <span class="nav-icon">#</span><span>매출/통계</span>
+      </button>
+      <button class="admin-nav-item" data-tab="referrers" onclick="setAdminTab('referrers')">
+        <span class="nav-icon">R</span><span>유입 분석</span>
+      </button>
+      <button class="admin-nav-item" data-tab="content" onclick="setAdminTab('content')">
+        <span class="nav-icon">C</span><span>콘텐츠</span>
+      </button>
+      <button class="admin-nav-item" data-tab="authors" onclick="setAdminTab('authors')">
+        <span class="nav-icon">A</span><span>작가 신청 <span id="authorPendingCount" style="display:none;background:#d32f2f;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:4px;">0</span></span>
+      </button>
+      <button class="admin-nav-item" data-tab="payouts" onclick="setAdminTab('payouts')">
+        <span class="nav-icon">₩</span><span>출간 정산</span>
+      </button>
+      <button class="admin-nav-item" data-tab="publish-review" onclick="setAdminTab('publish-review')">
+        <span class="nav-icon">P</span><span>출간 검토 <span id="publishReviewCount" style="display:none;background:#d32f2f;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:4px;">0</span></span>
+      </button>
+      <button class="admin-nav-item" data-tab="publishing" onclick="setAdminTab('publishing')">
+        <span class="nav-icon">B</span><span>출판대행</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- 메인 영역 -->
+  <div class="admin-main">
+    <div class="admin-header">
+      <h2 id="adminPageTitle">대시보드</h2>
+      <button class="admin-logout" onclick="adminLogout()">로그아웃</button>
+    </div>
+
+    <!-- 대시보드 -->
+    <div class="admin-tab on" id="tab-dashboard">
+      <div class="stat-cards" id="dashCards"></div>
+      <div class="admin-panel">
+        <div class="admin-panel-header">
+          <div class="admin-panel-title">최근 가입 회원</div>
+        </div>
+        <table><thead><tr><th>이름</th><th>이메일</th><th>가입일</th></tr></thead><tbody id="recentMembers"></tbody></table>
+      </div>
+      <div class="admin-panel">
+        <div class="admin-panel-header">
+          <div class="admin-panel-title">최근 고객 문의</div>
+        </div>
+        <div id="recentInquiries"></div>
+      </div>
+    </div>
+
+    <!-- 회원 관리 -->
+    <div class="admin-tab" id="tab-members">
+      <div class="admin-panel">
+        <div class="admin-panel-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="admin-panel-title">전체 회원 <span id="memberCount" style="font-size:12px;font-weight:400;color:#999;"></span></div>
+            <button id="btnGrantSelected" onclick="grantSelectedMembers()" style="display:none;padding:5px 12px;background:#1565C0;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);margin-right:4px;">선택 지급</button>
+            <button id="btnSendEmail" onclick="sendCreditEmailToSelected()" style="display:none;padding:5px 12px;background:#E65100;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);margin-right:4px;">알림 발송</button>
+            <span id="selectedCount" style="font-size:11px;color:#1565C0;font-weight:600;"></span>
+            <button onclick="bulkGrantZeroMembers()" style="padding:5px 12px;background:#2E7D32;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);margin-right:4px;">0文 일괄지급</button>
+            <button onclick="deleteSpamMembers()" style="padding:5px 12px;background:#C62828;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);">스팸 일괄삭제</button>
+          </div>
+          <input class="admin-search" placeholder="이름 또는 이메일 검색..." oninput="filterMembers(this.value)">
+        </div>
+        <div style="overflow-x:auto;">
+        <table><thead><tr><th style="width:36px;text-align:center;"><input type="checkbox" onchange="toggleAllMembers(this)" title="전체선택"></th><th style="width:36px;">#</th><th>이름</th><th>이메일</th><th>가입일</th><th>상태</th><th>잔여 文</th><th style="text-align:right;">방문</th><th style="text-align:right;">결제</th><th>관리</th></tr></thead><tbody id="memberList"></tbody></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 고객 문의 -->
+    <div class="admin-tab" id="tab-inquiries">
+      <div class="admin-panel">
+        <div class="admin-panel-header">
+          <div class="admin-panel-title">고객 문의 목록</div>
+        </div>
+        <div id="inquiryList"></div>
+      </div>
+    </div>
+
+    <!-- 1:1 맞춤법 상담 -->
+    <div class="admin-tab" id="tab-spellcheck">
+      <div class="admin-panel">
+        <div class="admin-panel-header">
+          <div class="admin-panel-title">1:1 맞춤법 상담</div>
+          <div style="display:flex;gap:6px;">
+            <button class="reply-btn" onclick="loadSpellcheckList('')" style="background:#eee;color:#333;">전체</button>
+            <button class="reply-btn" onclick="loadSpellcheckList('pending')" style="background:#BF8C80;color:#fff;">미답변</button>
+            <button class="reply-btn" onclick="loadSpellcheckList('replied')" style="background:#eee;color:#333;">답변완료</button>
+          </div>
+        </div>
+        <div id="spellcheckList" style="padding:12px 0;">
+          <div style="text-align:center;padding:40px;color:#ccc;">불러오는 중...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 맞춤법 제보 (error_reports) -->
+    <div class="admin-tab" id="tab-reports">
+      <div class="stat-cards" id="reportCards"></div>
+      <div class="admin-panel">
+        <div class="admin-panel-header">
+          <div class="admin-panel-title">오류 제보 목록</div>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <select id="reportToolFilter" class="admin-search" style="width:auto;padding:6px 10px;" onchange="loadReports()">
+              <option value="">전체 도구</option>
+              <option value="spellcheck">맞춤법 검사기</option>
+              <option value="editor">유료 에디터</option>
+              <option value="grammar">문법 검사기</option>
+              <option value="spacing">띄어쓰기</option>
+            </select>
+            <button class="sp-filter-btn on" data-rs="pending" onclick="setReportStatus('pending',this)">대기중</button>
+            <button class="sp-filter-btn" data-rs="resolved" onclick="setReportStatus('resolved',this)">반영완료</button>
+            <button class="sp-filter-btn" data-rs="ignored" onclick="setReportStatus('ignored',this)">무시</button>
+            <button class="sp-filter-btn" data-rs="" onclick="setReportStatus('',this)">전체</button>
+          </div>
+        </div>
+        <div id="reportsList" style="padding:8px 0;">
+          <div style="text-align:center;padding:40px;color:#ccc;">불러오는 중...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 교정 예외 단어 (spacing_exceptions) -->
+    <div class="admin-tab" id="tab-spacing-exceptions">
+      <div class="stat-cards" id="spacingExcCards"></div>
+      <div class="admin-panel" style="margin-bottom:16px;">
+        <div class="admin-panel-header">
+          <div class="admin-panel-title">예외 단어 등록</div>
+        </div>
+        <div style="padding:16px 20px;display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;">
+          <div style="flex:1;min-width:200px;">
+            <div style="font-size:11px;font-weight:700;color:#666;margin-bottom:4px;">단어 (예: 사장님, 고객)</div>
+            <input type="text" id="spacingExcWord" class="admin-search" placeholder="사장님" style="width:100%;">
+          </div>
+          <div style="flex:2;min-width:240px;">
+            <div style="font-size:11px;font-weight:700;color:#666;margin-bottom:4px;">메모 (선택)</div>
+            <input type="text" id="spacingExcNote" class="admin-search" placeholder="합성 호칭어 — 붙여 쓰기" style="width:100%;">
+          </div>
+          <button class="reply-btn" onclick="createSpacingException(false)" style="background:#BF8C80;color:#fff;">등록 (승인 대기)</button>
+          <button class="reply-btn" onclick="createSpacingException(true)" style="background:#2E7D32;color:#fff;">등록·즉시 승인</button>
+        </div>
+      </div>
+      <div class="admin-panel">
+        <div class="admin-panel-header">
+          <div class="admin-panel-title">교정 예외 목록</div>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <button class="sp-filter-btn on" data-ses="pending" onclick="setSpacingExcStatus('pending',this)">대기중</button>
+            <button class="sp-filter-btn" data-ses="approved" onclick="setSpacingExcStatus('approved',this)">승인됨</button>
+            <button class="sp-filter-btn" data-ses="rejected" onclick="setSpacingExcStatus('rejected',this)">반려</button>
+            <button class="sp-filter-btn" data-ses="" onclick="setSpacingExcStatus('',this)">전체</button>
+            <button class="reply-btn" type="button" onclick="migrateSpacingExceptions()" style="margin-left:8px;background:#5D4037;color:#fff;font-size:12px;">DB 초기화·시드</button>
+          </div>
+        </div>
+        <div id="spacingExcList" style="padding:8px 0;">
+          <div style="text-align:center;padding:40px;color:#ccc;">불러오는 중...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 데모체험 사용자 (demo_usage) -->
+    <div class="admin-tab" id="tab-demo">
+      <div class="stat-cards" id="demoCards"></div>
+      <div class="admin-panel">
+        <div class="admin-panel-header">
+          <div class="admin-panel-title">데모체험 사용자 목록 <span id="demoCount" style="font-size:12px;font-weight:400;color:#999;"></span></div>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <input id="demoSearch" class="admin-search" placeholder="이메일 또는 IP 검색..." oninput="loadDemoUsersDebounced()">
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:36px;">#</th>
+                <th>이메일</th>
+                <th>가입일</th>
+                <th>마지막 로그인</th>
+                <th>잔여 文</th>
+                <th>IP</th>
+                <th>유입경로</th>
+                <th>UTM</th>
+                <th style="min-width:200px;">User-Agent</th>
+              </tr>
+            </thead>
+            <tbody id="demoList">
+              <tr><td colspan="9" style="text-align:center;padding:40px;color:#ccc;">불러오는 중...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 후기 승인 (review_board) -->
+    <div class="admin-tab" id="tab-review-board">
+      <div class="stat-cards" id="reviewBoardCards"></div>
+      <div class="admin-panel">
+        <div class="admin-panel-header">
+          <div class="admin-panel-title">후기 승인 대기 목록</div>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <button class="sp-filter-btn on" data-rvbs="pending" onclick="setReviewBoardStatus('pending',this)">대기중</button>
+            <button class="sp-filter-btn" data-rvbs="approved" onclick="setReviewBoardStatus('approved',this)">승인완료</button>
+            <button class="sp-filter-btn" data-rvbs="rejected" onclick="setReviewBoardStatus('rejected',this)">반려</button>
+            <button class="sp-filter-btn" data-rvbs="" onclick="setReviewBoardStatus('',this)">전체</button>
+          </div>
+        </div>
+        <div id="reviewBoardList" style="padding:8px 0;">
+          <div style="text-align:center;padding:40px;color:#ccc;">불러오는 중...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 文 관리 -->
+    <div class="admin-tab" id="tab-points">
+      <div class="stat-cards" id="pointCards"></div>
+      <div class="admin-panel">
+        <div class="admin-panel-header">
+          <div class="admin-panel-title">文 지급/차감 이력</div>
+        </div>
+        <table><thead><tr><th>대상</th><th>유형</th><th>금액</th><th>사유</th><th>일시</th></tr></thead><tbody id="pointHistory"></tbody></table>
+      </div>
+      <button onclick="openPointModal()" style="padding:10px 20px;background:var(--orange);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);">文 지급/차감</button>
+    </div>
+
+    <!-- 공지사항 -->
+    <div class="admin-tab" id="tab-notices">
+      <div class="admin-panel">
+        <div class="admin-panel-header">
+          <div class="admin-panel-title">공지사항 관리</div>
+          <button onclick="openNoticeModal()" style="padding:6px 14px;background:var(--orange);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);">새 공지 작성</button>
+        </div>
+        <div id="noticeList"></div>
+      </div>
+    </div>
+
+    <!-- 매출/통계 -->
+    <div class="admin-tab" id="tab-stats">
+      <div class="stat-cards" id="statsCards"></div>
+      <div class="admin-panel">
+        <div class="admin-panel-header">
+          <div class="admin-panel-title">일별 방문 추이 (최근 14일)</div>
+        </div>
+        <div id="visitChart" style="padding:20px;"></div>
+      </div>
+    </div>
+
+    <!-- 유입 분석 -->
+    <div class="admin-tab" id="tab-referrers">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+        <span style="font-size:12px;color:#999;font-weight:600;">기간</span>
+        <button class="ref-period-btn on" onclick="loadReferrerStats(1,this)">오늘</button>
+        <button class="ref-period-btn" onclick="loadReferrerStats(2,this)">어제</button>
+        <button class="ref-period-btn" onclick="loadReferrerStats(7,this)">7일</button>
+        <button class="ref-period-btn" onclick="loadReferrerStats(14,this)">14일</button>
+        <button class="ref-period-btn" onclick="loadReferrerStats(30,this)">30일</button>
+        <span id="refTotal" style="font-size:12px;color:#999;margin-left:8px;"></span>
+      </div>
+      <div class="stat-cards" id="refSummaryCards"></div>
+      <div class="admin-panel" style="margin-bottom:16px;">
+        <div class="admin-panel-header" style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div class="admin-panel-title">오늘 방문 로그</div>
+            <div id="todayLogsSubtitle" style="font-size:11px;color:#999;margin-top:2px;">불러오는 중...</div>
+          </div>
+          <button id="todayLogsRefreshBtn" onclick="refreshTodayLogs()" style="padding:6px 12px;font-size:11px;font-weight:600;border:1px solid #e0e0e0;border-radius:6px;background:#fff;color:#999;cursor:pointer;">새로고침</button>
+        </div>
+        <div id="refTodayLogs" style="padding:0;max-height:520px;overflow-y:auto;"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+        <div class="admin-panel">
+          <div class="admin-panel-header"><div class="admin-panel-title">AI 챗봇 (LLM 추천 유입)</div></div>
+          <div id="refAiBots" style="padding:16px;"></div>
+        </div>
+        <div class="admin-panel">
+          <div class="admin-panel-header"><div class="admin-panel-title">검색엔진 (검색어 포함)</div></div>
+          <div id="refSearchEngines" style="padding:16px;"></div>
+        </div>
+        <div class="admin-panel">
+          <div class="admin-panel-header"><div class="admin-panel-title">SNS / 메신저</div></div>
+          <div id="refSnsList" style="padding:16px;"></div>
+        </div>
+        <div class="admin-panel">
+          <div class="admin-panel-header"><div class="admin-panel-title">외부 사이트 (도메인 ▸ 페이지)</div></div>
+          <div id="refTree" style="padding:16px;"></div>
+        </div>
+        <div class="admin-panel">
+          <div class="admin-panel-header"><div class="admin-panel-title">직접 방문 (인앱브라우저별)</div></div>
+          <div id="refDirectInapp" style="padding:16px;"></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="admin-panel">
+          <div class="admin-panel-header"><div class="admin-panel-title">유입 경로 (도메인 전체)</div></div>
+          <div id="refReferrers" style="padding:16px;"></div>
+        </div>
+        <div class="admin-panel">
+          <div class="admin-panel-header"><div class="admin-panel-title">기기</div></div>
+          <div id="refDevices" style="padding:16px;"></div>
+        </div>
+        <div class="admin-panel">
+          <div class="admin-panel-header"><div class="admin-panel-title">OS</div></div>
+          <div id="refOS" style="padding:16px;"></div>
+        </div>
+        <div class="admin-panel">
+          <div class="admin-panel-header"><div class="admin-panel-title">브라우저</div></div>
+          <div id="refBrowsers" style="padding:16px;"></div>
+        </div>
+        <div class="admin-panel">
+          <div class="admin-panel-header"><div class="admin-panel-title">기기 × OS</div></div>
+          <div id="refDeviceOS" style="padding:16px;"></div>
+        </div>
+        <div class="admin-panel">
+          <div class="admin-panel-header"><div class="admin-panel-title">기기 × 브라우저</div></div>
+          <div id="refDeviceBrowser" style="padding:16px;"></div>
+        </div>
+        <div class="admin-panel">
+          <div class="admin-panel-header"><div class="admin-panel-title">인기 페이지</div></div>
+          <div id="refPages" style="padding:16px;"></div>
+        </div>
+        <div class="admin-panel">
+          <div class="admin-panel-header"><div class="admin-panel-title">UTM 캠페인</div></div>
+          <div id="refUtm" style="padding:16px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 콘텐츠 -->
+    <div class="admin-tab" id="tab-content">
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="stat-card-label">교정 규칙 수</div>
+          <div class="stat-card-value" id="contentRuleCount">-</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">퀴즈 문제 수</div>
+          <div class="stat-card-value" id="contentQuizCount">-</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">글쓰기 주제 수</div>
+          <div class="stat-card-value" id="contentDailyCount">-</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">블로그 게시글</div>
+          <div class="stat-card-value" id="contentBlogCount">-</div>
+        </div>
+      </div>
+      <div class="admin-panel" style="padding:20px;">
+        <p style="font-size:13px;color:#999;text-align:center;">콘텐츠 관리는 Supabase 연동 후 활성화됩니다.<br>현재는 JS 파일에서 직접 수정합니다.</p>
+      </div>
+    </div>
+
+    <!-- 성장 후기 -->
+    <div class="admin-tab" id="tab-stories">
+      <div class="admin-panel" style="padding:20px;">
+        <div style="display:flex;gap:8px;border-bottom:1px solid #F5E4DB;padding-bottom:12px;margin-bottom:16px;">
+          <button class="story-admin-tab on" data-status="pending" onclick="setStoryAdminTab('pending')" style="padding:6px 14px;background:#BF8C80;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">승인 대기</button>
+          <button class="story-admin-tab" data-status="approved" onclick="setStoryAdminTab('approved')" style="padding:6px 14px;background:#fff;color:#555;border:1px solid #E6D4CC;border-radius:6px;font-size:13px;cursor:pointer;font-family:inherit;">승인됨</button>
+          <button class="story-admin-tab" data-status="rejected" onclick="setStoryAdminTab('rejected')" style="padding:6px 14px;background:#fff;color:#555;border:1px solid #E6D4CC;border-radius:6px;font-size:13px;cursor:pointer;font-family:inherit;">반려됨</button>
+        </div>
+        <div id="storyAdminList">
+          <div style="text-align:center;padding:30px;color:#999;font-size:13px;">불러오는 중...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 출간 검토 -->
+    <div class="admin-tab" id="tab-publish-review">
+      <div class="admin-panel" style="padding:20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #F5E4DB;padding-bottom:12px;margin-bottom:16px;">
+          <div style="font-size:14px;color:#666;">작가가 출간 신청한 글을 검토합니다. 첫 승인 시 그 사용자에게 작가 자격(<strong>author_status='approved'</strong>)이 자동 부여됩니다.</div>
+          <button onclick="loadPendingPublishWorks()" style="padding:7px 14px;background:#fff;color:#666;border:1px solid #D9B7B0;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">↻ 새로고침</button>
+        </div>
+        <div id="publishReviewList">
+          <div style="text-align:center;padding:30px;color:#999;font-size:13px;">불러오는 중...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 출판대행 검수 -->
+    <div class="admin-tab" id="tab-publishing">
+      <div class="admin-panel" style="padding:20px;">
+        <div class="pa-toolbar">
+          <div class="pa-filter" id="pa-filter">
+            <button class="pa-chip on" data-status="all">전체 <span class="cnt" id="cnt-all">0</span></button>
+            <button class="pa-chip" data-status="submitted">접수 <span class="cnt" id="cnt-submitted">0</span></button>
+            <button class="pa-chip" data-status="under_review">검토 <span class="cnt" id="cnt-under_review">0</span></button>
+            <button class="pa-chip" data-status="contracted">계약 <span class="cnt" id="cnt-contracted">0</span></button>
+            <button class="pa-chip" data-status="in_production">제작 <span class="cnt" id="cnt-in_production">0</span></button>
+            <button class="pa-chip" data-status="submitted_to_millie">입점 <span class="cnt" id="cnt-submitted_to_millie">0</span></button>
+            <button class="pa-chip" data-status="live">서비스 <span class="cnt" id="cnt-live">0</span></button>
+            <button class="pa-chip" data-status="rejected">반려 <span class="cnt" id="cnt-rejected">0</span></button>
+          </div>
+          <button class="pa-chip" id="pa-refresh">↻ 새로고침</button>
+        </div>
+        <div id="pa-list-area">
+          <div class="pa-loading"><div class="spinner"></div><div style="margin-top:8px;">불러오는 중...</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 출간 정산 -->
+    <div class="admin-tab" id="tab-payouts">
+      <div class="admin-panel" style="padding:20px;">
+        <div style="display:flex;gap:8px;align-items:center;border-bottom:1px solid #F5E4DB;padding-bottom:12px;margin-bottom:16px;flex-wrap:wrap;">
+          <button class="payout-tab on" data-sub="books" onclick="setPayoutTab('books')" style="padding:6px 14px;background:#BF8C80;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">출간 책</button>
+          <button class="payout-tab" data-sub="import" onclick="setPayoutTab('import')" style="padding:6px 14px;background:#fff;color:#555;border:1px solid #E6D4CC;border-radius:6px;font-size:13px;cursor:pointer;font-family:inherit;">월별 인세 입력 (CSV)</button>
+          <button class="payout-tab" data-sub="payouts" onclick="setPayoutTab('payouts')" style="padding:6px 14px;background:#fff;color:#555;border:1px solid #E6D4CC;border-radius:6px;font-size:13px;cursor:pointer;font-family:inherit;">정산 명세서</button>
+          <span style="margin-left:auto;font-size:12px;color:#999;">분배: 작가 70 / OrangeLibrary 30 (책별 조정 가능)</span>
+        </div>
+
+        <!-- 서브탭 1: 책 목록 + 등록 -->
+        <div id="payout-sub-books">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <div style="font-size:13px;color:#666;">출간 대행한 책 마스터입니다. CSV 업로드는 ISBN으로 매칭됩니다.</div>
+            <button class="btn-primary" onclick="openBookModal()" style="padding:7px 14px;border-radius:6px;background:#BF8C80;color:#fff;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">+ 책 등록</button>
+          </div>
+          <div id="payoutBooksList">
+            <div style="text-align:center;padding:30px;color:#999;font-size:13px;">불러오는 중...</div>
+          </div>
+        </div>
+
+        <!-- 서브탭 2: CSV 업로드 -->
+        <div id="payout-sub-import" style="display:none;">
+          <div style="background:#FFF7F0;border:1px solid #FDE4CF;border-radius:10px;padding:14px 16px;margin-bottom:14px;font-size:12px;color:#666;line-height:1.7;">
+            <strong style="color:#B8612A;">CSV 포맷</strong>: 첫 행은 헤더 (<code>isbn,title,gross_amount_krw</code>), 이후 각 행에 책 한 권의 월간 인세.<br>
+            ISBN으로 등록된 책과 매칭됩니다. 매칭 안 된 행은 별도 표시.
+          </div>
+
+          <div style="display:grid;grid-template-columns:auto auto auto 1fr;gap:10px;align-items:end;background:#fff;border:1px solid #D9B7B0;border-radius:12px;padding:14px;margin-bottom:14px;">
+            <div>
+              <label style="display:block;font-size:11px;font-weight:700;color:#999;margin-bottom:4px;">정산 연도</label>
+              <input id="csvYear" type="number" min="2024" max="2100" style="width:90px;padding:8px 10px;border:1.5px solid #e0e0e0;border-radius:8px;font-family:inherit;">
+            </div>
+            <div>
+              <label style="display:block;font-size:11px;font-weight:700;color:#999;margin-bottom:4px;">정산 월</label>
+              <input id="csvMonth" type="number" min="1" max="12" style="width:70px;padding:8px 10px;border:1.5px solid #e0e0e0;border-radius:8px;font-family:inherit;">
+            </div>
+            <div>
+              <label style="display:block;font-size:11px;font-weight:700;color:#999;margin-bottom:4px;">채널</label>
+              <select id="csvChannel" style="padding:8px 10px;border:1.5px solid #e0e0e0;border-radius:8px;font-family:inherit;">
+                <option value="millie">밀리의서재</option>
+                <option value="ridi">리디</option>
+                <option value="kyobo">교보</option>
+                <option value="aladin">알라딘</option>
+                <option value="other">기타</option>
+              </select>
+            </div>
+            <div>
+              <label style="display:block;font-size:11px;font-weight:700;color:#999;margin-bottom:4px;">CSV 파일</label>
+              <input id="csvFile" type="file" accept=".csv,text/csv" onchange="onCsvFile(this)" style="font-family:inherit;font-size:12px;">
+            </div>
+          </div>
+
+          <div id="csvPreview" style="display:none;background:#fff;border:1px solid #D9B7B0;border-radius:12px;padding:14px;margin-bottom:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+              <div style="font-size:13px;font-weight:700;color:#0D0D0D;">미리보기 <span id="csvPreviewSummary" style="color:#999;font-weight:400;font-size:12px;"></span></div>
+              <button onclick="confirmCsvImport()" id="csvConfirmBtn" style="padding:8px 16px;background:#2E7D32;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">업로드 확정</button>
+            </div>
+            <div style="max-height:300px;overflow-y:auto;">
+              <table style="width:100%;font-size:12px;border-collapse:collapse;">
+                <thead><tr style="background:#FFF7F0;"><th style="padding:6px 10px;text-align:left;">ISBN</th><th style="padding:6px 10px;text-align:left;">제목</th><th style="padding:6px 10px;text-align:right;">금액(원)</th></tr></thead>
+                <tbody id="csvPreviewRows"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="csvResult" style="display:none;background:#fff;border-radius:12px;padding:14px;border:1px solid #C8E6C9;"></div>
+        </div>
+
+        <!-- 서브탭 3: 정산 명세서 -->
+        <div id="payout-sub-payouts" style="display:none;">
+          <div style="display:flex;gap:10px;align-items:end;background:#fff;border:1px solid #D9B7B0;border-radius:12px;padding:14px;margin-bottom:14px;">
+            <div>
+              <label style="display:block;font-size:11px;font-weight:700;color:#999;margin-bottom:4px;">연도</label>
+              <input id="poYear" type="number" min="2024" max="2100" style="width:90px;padding:8px 10px;border:1.5px solid #e0e0e0;border-radius:8px;font-family:inherit;">
+            </div>
+            <div>
+              <label style="display:block;font-size:11px;font-weight:700;color:#999;margin-bottom:4px;">월</label>
+              <input id="poMonth" type="number" min="1" max="12" style="width:70px;padding:8px 10px;border:1.5px solid #e0e0e0;border-radius:8px;font-family:inherit;">
+            </div>
+            <button onclick="recomputePayouts()" style="padding:8px 14px;background:#fff;color:#666;border:1px solid #D9B7B0;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">정산 재계산</button>
+            <button onclick="loadPayouts()" style="padding:8px 14px;background:#BF8C80;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">조회</button>
+            <span style="margin-left:auto;font-size:11px;color:#999;">'정산 재계산' = 해당 월 인세 합산해서 작가별 명세서 생성/갱신</span>
+          </div>
+          <div id="payoutsList">
+            <div style="text-align:center;padding:30px;color:#999;font-size:13px;">연/월을 입력하고 조회를 눌러주세요.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 작가 신청 관리 -->
+    <div class="admin-tab" id="tab-authors">
+      <div class="admin-panel" style="padding:20px;">
+        <div style="display:flex;gap:8px;align-items:center;border-bottom:1px solid #F5E4DB;padding-bottom:12px;margin-bottom:16px;flex-wrap:wrap;">
+          <button class="author-admin-tab on" data-filter="all" onclick="setAuthorAdminTab('all')" style="padding:6px 14px;background:#BF8C80;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">전체 대기</button>
+          <button class="author-admin-tab" data-filter="normal" onclick="setAuthorAdminTab('normal')" style="padding:6px 14px;background:#fff;color:#555;border:1px solid #E6D4CC;border-radius:6px;font-size:13px;cursor:pointer;font-family:inherit;">일반 심사</button>
+          <button class="author-admin-tab" data-filter="special" onclick="setAuthorAdminTab('special')" style="padding:6px 14px;background:#fff;color:#555;border:1px solid #E6D4CC;border-radius:6px;font-size:13px;cursor:pointer;font-family:inherit;">별도 심사 (동기부여/자기계발)</button>
+          <span style="margin-left:auto;font-size:12px;color:#999;">심사 기준 2~3일</span>
+        </div>
+        <div id="authorAdminList">
+          <div style="text-align:center;padding:30px;color:#999;font-size:13px;">불러오는 중...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 글 미리보기 모달 (출간 검토용) -->
+<div id="publishPreviewModal" style="display:none;position:fixed;inset:0;z-index:10010;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)closePublishPreviewModal()">
+  <div style="background:#fff;border-radius:16px;max-width:760px;width:100%;max-height:90vh;display:flex;flex-direction:column;">
+    <div style="padding:18px 22px;border-bottom:1px solid #F2F2F2;display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div id="ppmAuthor" style="font-size:12px;color:#999;margin-bottom:2px;">작가 정보</div>
+        <div id="ppmTitle" style="font-size:18px;font-weight:800;color:#0D0D0D;">제목</div>
+      </div>
+      <button onclick="closePublishPreviewModal()" style="background:none;border:none;font-size:20px;color:#bbb;cursor:pointer;">✕</button>
+    </div>
+    <div style="padding:20px 22px;overflow-y:auto;flex:1;">
+      <div id="ppmMeta" style="display:flex;gap:14px;font-size:12px;color:#999;margin-bottom:14px;flex-wrap:wrap;"></div>
+      <article id="ppmBody" style="font-family:'Noto Serif KR',serif;font-size:15px;line-height:1.9;color:#222;"></article>
+    </div>
+    <div style="padding:14px 22px;border-top:1px solid #F2F2F2;display:flex;gap:8px;justify-content:flex-end;">
+      <button onclick="openRejectModal()" style="padding:9px 18px;background:#fff;color:#d32f2f;border:1px solid #d32f2f;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">거절</button>
+      <button onclick="approvePublish()" style="padding:9px 22px;background:#2E7D32;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">승인 (글 발행 + 작가 자격 부여)</button>
+    </div>
+  </div>
+</div>
+
+<!-- 거절 사유 모달 (출간 검토용) -->
+<div id="publishRejectModal" style="display:none;position:fixed;inset:0;z-index:10011;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)closeRejectModal()">
+  <div style="background:#fff;border-radius:16px;padding:24px;max-width:440px;width:100%;">
+    <h3 style="font-size:16px;font-weight:800;margin:0 0 12px;color:#0D0D0D;">출간 거절 사유</h3>
+    <div id="prmTarget" style="background:#FFF7F0;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:#666;"></div>
+    <textarea id="prmReason" placeholder="작가에게 전달될 거절 사유 (5자 이상)" style="width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-family:inherit;font-size:13px;resize:vertical;min-height:90px;box-sizing:border-box;"></textarea>
+    <div style="display:flex;gap:10px;margin-top:14px;">
+      <button onclick="closeRejectModal()" style="flex:1;padding:10px 0;border:1px solid #e0e0e0;border-radius:8px;background:#fff;font-size:13px;color:#999;cursor:pointer;font-family:inherit;">취소</button>
+      <button onclick="confirmRejectPublish()" style="flex:1;padding:10px 0;border:none;border-radius:8px;background:#d32f2f;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;">거절하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 책 등록/수정 모달 -->
+<div id="bookModal" style="display:none;position:fixed;inset:0;z-index:10010;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)closeBookModal()">
+  <div style="background:#fff;border-radius:16px;padding:24px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;">
+    <h3 id="bookModalTitle" style="font-size:16px;font-weight:800;margin:0 0 14px;color:#0D0D0D;">책 등록</h3>
+    <div style="display:grid;gap:10px;">
+      <div>
+        <label style="display:block;font-size:11px;font-weight:700;color:#999;margin-bottom:4px;">책 제목 *</label>
+        <input id="bm-title" type="text" style="width:100%;padding:9px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-family:inherit;box-sizing:border-box;">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div>
+          <label style="display:block;font-size:11px;font-weight:700;color:#999;margin-bottom:4px;">ISBN (CSV 매칭 키) *</label>
+          <input id="bm-isbn" type="text" placeholder="9788912345678" style="width:100%;padding:9px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-family:inherit;box-sizing:border-box;">
+        </div>
+        <div>
+          <label style="display:block;font-size:11px;font-weight:700;color:#999;margin-bottom:4px;">채널</label>
+          <select id="bm-channel" style="width:100%;padding:9px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-family:inherit;background:#fff;box-sizing:border-box;">
+            <option value="millie">밀리의서재</option>
+            <option value="ridi">리디</option>
+            <option value="kyobo">교보</option>
+            <option value="aladin">알라딘</option>
+            <option value="other">기타</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label style="display:block;font-size:11px;font-weight:700;color:#999;margin-bottom:4px;">작가 (이메일로 검색) *</label>
+        <input id="bm-author-email" type="text" placeholder="작가 이메일" oninput="searchAuthorByEmail(this.value)" style="width:100%;padding:9px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-family:inherit;box-sizing:border-box;">
+        <div id="bm-author-result" style="font-size:12px;color:#999;margin-top:4px;"></div>
+        <input id="bm-author-uid" type="hidden">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div>
+          <label style="display:block;font-size:11px;font-weight:700;color:#999;margin-bottom:4px;">작가 인세율</label>
+          <input id="bm-rate" type="number" step="0.01" min="0" max="1" value="0.7" style="width:100%;padding:9px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-family:inherit;box-sizing:border-box;">
+          <div style="font-size:10px;color:#bbb;margin-top:2px;">예: 0.7 = 작가 70% / OL 30%</div>
+        </div>
+        <div>
+          <label style="display:block;font-size:11px;font-weight:700;color:#999;margin-bottom:4px;">출간일</label>
+          <input id="bm-published" type="date" style="width:100%;padding:9px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-family:inherit;box-sizing:border-box;">
+        </div>
+      </div>
+      <div>
+        <label style="display:block;font-size:11px;font-weight:700;color:#999;margin-bottom:4px;">표지 URL (선택)</label>
+        <input id="bm-cover" type="url" placeholder="https://..." style="width:100%;padding:9px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-family:inherit;box-sizing:border-box;">
+      </div>
+    </div>
+    <div id="bm-error" style="display:none;background:#FFF3F3;color:#d32f2f;padding:8px 12px;border-radius:8px;font-size:12px;margin-top:12px;font-weight:600;"></div>
+    <div style="display:flex;gap:10px;margin-top:18px;">
+      <button onclick="closeBookModal()" style="flex:1;padding:11px 0;border:1px solid #e0e0e0;border-radius:10px;background:#fff;font-size:13px;font-weight:600;color:#999;cursor:pointer;font-family:inherit;">취소</button>
+      <button id="bm-save-btn" onclick="saveBook()" style="flex:2;padding:11px 0;border:none;border-radius:10px;background:#BF8C80;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- 송금 완료 마킹 모달 -->
+<div id="paidModal" style="display:none;position:fixed;inset:0;z-index:10010;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;" onclick="if(event.target===this)closePaidModal()">
+  <div style="background:#fff;border-radius:16px;padding:24px;max-width:420px;width:90%;">
+    <h3 style="font-size:15px;font-weight:800;margin:0 0 12px;color:#0D0D0D;">송금 완료 마킹</h3>
+    <div id="paidTarget" style="background:#FFF7F0;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:#666;"></div>
+    <label style="display:block;font-size:11px;font-weight:700;color:#999;margin-bottom:4px;">메모 (송금 일시·계좌 등 기록)</label>
+    <textarea id="paidMemo" placeholder="예: 2026-06-10 농협 123-4567-89-01 김작가, 송금 완료" style="width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-family:inherit;font-size:13px;resize:vertical;min-height:70px;box-sizing:border-box;"></textarea>
+    <div style="display:flex;gap:10px;margin-top:14px;">
+      <button onclick="closePaidModal()" style="flex:1;padding:10px 0;border:1px solid #e0e0e0;border-radius:8px;background:#fff;font-size:13px;color:#999;cursor:pointer;font-family:inherit;">취소</button>
+      <button onclick="confirmPaid()" style="flex:1;padding:10px 0;border:none;border-radius:8px;background:#2E7D32;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;">송금 완료</button>
+    </div>
+  </div>
+</div>
+
+<!-- 작가 거절 사유 모달 -->
+<div class="admin-modal-overlay" id="authorRejectModal" onclick="if(event.target===this)closeAuthorRejectModal()" style="display:none;position:fixed;inset:0;z-index:10010;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;">
+  <div class="admin-modal" style="background:#fff;border-radius:16px;padding:24px;max-width:440px;width:90%;">
+    <h3 style="font-size:16px;font-weight:800;margin:0 0 14px;color:#0D0D0D;">작가 신청 거절</h3>
+    <div id="authorRejectTarget" style="background:#FFF7F0;border-radius:8px;padding:10px 12px;margin-bottom:14px;font-size:13px;color:#666;"></div>
+    <label style="display:block;font-size:12px;font-weight:700;color:#333;margin-bottom:6px;">거절 사유 (신청자에게 표시됨)</label>
+    <textarea id="authorRejectReason" placeholder="예: 자기소개가 너무 짧습니다. 50자 이상 작성해주세요." style="width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:10px;font-size:13px;font-family:inherit;resize:vertical;min-height:90px;max-height:200px;outline:none;color:#0D0D0D;line-height:1.6;box-sizing:border-box;"></textarea>
+    <div style="display:flex;gap:10px;margin-top:16px;">
+      <button onclick="closeAuthorRejectModal()" style="flex:1;padding:11px 0;border:1px solid #e0e0e0;border-radius:10px;background:#fff;font-size:13px;font-weight:600;color:#999;cursor:pointer;font-family:inherit;">취소</button>
+      <button id="authorRejectConfirmBtn" onclick="confirmAuthorReject()" style="flex:1;padding:11px 0;border:none;border-radius:10px;background:#d32f2f;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;">거절하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 文 지급/차감 모달 -->
+<div class="admin-modal-overlay" id="pointModal" onclick="if(event.target===this)closePointModal()">
+  <div class="admin-modal">
+    <h3>文 지급/차감</h3>
+    <label>대상 회원 (이메일)</label>
+    <select id="pmTarget"></select>
+    <label>유형</label>
+    <select id="pmType">
+      <option value="grant">지급</option>
+      <option value="deduct">차감</option>
+    </select>
+    <label>금액 (文)</label>
+    <input type="number" id="pmAmount" placeholder="예: 5000">
+    <label>사유</label>
+    <input type="text" id="pmReason" placeholder="예: 이벤트 보상">
+    <div class="admin-modal-actions">
+      <button class="btn-cancel" onclick="closePointModal()">취소</button>
+      <button class="btn-primary" onclick="execPointAction()">실행</button>
+    </div>
+  </div>
+</div>
+
+<!-- 공지 작성 모달 -->
+<div class="admin-modal-overlay" id="noticeModal" onclick="if(event.target===this)closeNoticeModal()">
+  <div class="admin-modal">
+    <h3>새 공지사항</h3>
+    <label>제목</label>
+    <input type="text" id="nmTitle" placeholder="공지 제목">
+    <label>내용</label>
+    <textarea id="nmContent" placeholder="공지 내용을 작성하세요..."></textarea>
+    <div class="admin-modal-actions">
+      <button class="btn-cancel" onclick="closeNoticeModal()">취소</button>
+      <button class="btn-primary" onclick="saveNotice()">등록</button>
+    </div>
+  </div>
+</div>
+
+<!-- 출판대행 상세 모달 -->
+<div class="pa-modal-overlay" id="pa-modal" onclick="if(event.target===this)closeModal()">
+  <div class="pa-modal">
+    <div class="pa-modal-h">
+      <div>
+        <h2 id="m-title">—</h2>
+        <div class="meta" id="m-meta">—</div>
+      </div>
+      <button class="pa-modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="pa-modal-body" id="m-body"></div>
+    <div class="pa-modal-actions" id="m-actions"></div>
+  </div>
+</div>
+
+<!-- 회원 상세 모달 -->
+<div class="admin-modal-overlay" id="memberModal" onclick="if(event.target===this)closeMemberModal()">
+  <div class="admin-modal">
+    <h3>회원 상세 정보</h3>
+    <div id="memberDetail"></div>
+    <div class="admin-modal-actions">
+      <button class="btn-cancel" onclick="closeMemberModal()">닫기</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.8" integrity="sha384-S21vdBTi9bjHygfLyIjf4A4QFtW9TvQyHFloa8yT8hIcYgaJT82CZextSZs3a5Wx" crossorigin="anonymous"></script>
+<script src="/js/config.js?v=20260429c"></script>
+<script src="/js/utils.js?v=20260506"></script>
+<script>
+// admin 전용 Supabase 클라이언트 (supabase.js 의존성 제거)
+var supabase = window.supabase.createClient(
+  'https://nwsmyzftrrcnwlygoofy.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53c215emZ0cnJjbndseWdvb2Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MTEwMzIsImV4cCI6MjA4NzQ4NzAzMn0.9-eWT80aJmYwojLPQtOeC0olvdxp_28XI6aOqVmLiNo'
+);
+</script>
+<script src="/js/admin.js?v=20260518f"></script>
+<script src="/js/author-admin.js?v=20260506a"></script>
+<script src="/js/payout-admin.js?v=20260506a"></script>
+<script src="/js/markdown.js?v=20260506a"></script>
+<script src="/js/publish-review-admin.js?v=20260506a"></script>
+<script src="/js/publishing-admin.js?v=20260509b"></script>
+</body>
+</html>

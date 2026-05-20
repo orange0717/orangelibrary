@@ -1,0 +1,140 @@
+/* pricing.css — 가격 페이지 전용 스타일 */
+
+/* ── 코인 아이콘 ── */
+.coin{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:linear-gradient(145deg,#FBC49A 0%,#BF8C80 100%);border-radius:50%;font-size:13px;font-weight:900;color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.15);box-shadow:inset 0 -2px 0 rgba(0,0,0,.08),0 1px 3px rgba(204,148,134,.25);flex-shrink:0;line-height:1;}
+.coin-sm{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:linear-gradient(145deg,#FBC49A 0%,#BF8C80 100%);border-radius:50%;font-size:9px;font-weight:900;color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.12);box-shadow:inset 0 -1px 0 rgba(0,0,0,.06);flex-shrink:0;line-height:1;vertical-align:middle;margin-right:3px;}
+.coin-lg{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:linear-gradient(145deg,#FBC49A 0%,#BF8C80 100%);border-radius:50%;font-size:17px;font-weight:900;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.15);box-shadow:inset 0 -3px 0 rgba(0,0,0,.08),0 2px 6px rgba(204,148,134,.3);flex-shrink:0;line-height:1;}
+
+/* ── 요금 카드 ── */
+.pricing-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:40px;}
+.pricing-card{background:#F2F2F2;border:1.5px solid #BF8C80;border-radius:16px;padding:20px 14px;text-align:center;transition:all .2s;}
+.pricing-card:hover{border-color:#BF8C80;box-shadow:0 4px 16px rgba(204,148,134,.18);transform:translateY(-2px);}
+.pricing-card.highlight{border:2.5px solid #BF8C80;position:relative;}
+.pricing-card .pc-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:800;padding:3px 14px;border-radius:20px;background:#BF8C80;color:#fff;white-space:nowrap;}
+.pricing-card .pc-title{font-size:15px;font-weight:700;color:#BF8C80;margin-bottom:8px;}
+.pricing-card .pc-coin-row{display:flex;align-items:center;justify-content:center;gap:8px;margin:10px 0;}
+.pricing-card .pc-amount{font-size:22px;font-weight:900;color:#BF8C80;}
+.pricing-card .pc-unit{font-size:13px;font-weight:500;color:#999;}
+.pricing-card .pc-desc{font-size:12px;color:#888;line-height:1.7;}
+
+/* ── 文 충전 섹션 ── */
+.charge-wrap{margin-top:40px;background:#fff;border:1.5px solid #F2F2F2;border-radius:16px;padding:28px 24px;}
+.charge-title{font-family:var(--font-title);font-size:18px;font-weight:700;color:#0D0D0D;margin-bottom:6px;text-align:center;}
+.charge-subtitle{font-size:13px;color:#999;text-align:center;margin-bottom:20px;}
+.charge-list{display:flex;flex-direction:column;gap:10px;}
+.charge-row{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border:1.5px solid #F2F2F2;border-radius:14px;text-decoration:none;transition:all .15s;cursor:pointer;}
+.charge-row:hover{border-color:#BF8C80;background:#F2F2F2;transform:translateY(-1px);box-shadow:0 2px 8px rgba(204,148,134,.15);}
+.charge-row.cr-popular{border:2px solid #BF8C80;position:relative;}
+.charge-row.cr-best{border:2px solid #BF8C80;position:relative;}
+.charge-row .cr-badge{position:absolute;top:-10px;left:16px;font-size:10px;font-weight:800;padding:2px 10px;border-radius:20px;color:#fff;letter-spacing:.3px;}
+.charge-row .cr-badge.badge-pop{background:#BF8C80;}
+.charge-row .cr-badge.badge-best{background:#BF8C80;}
+.charge-left{display:flex;align-items:center;gap:10px;}
+.charge-amount{font-size:17px;font-weight:700;color:#BF8C80;}
+.charge-price{font-size:16px;font-weight:700;color:#333;}
+
+/* ── 기능 비교표 ── */
+.fc-wrap{margin-top:40px;background:#fff;border:1.5px solid #F2F2F2;border-radius:16px;padding:28px 0;overflow:hidden;}
+.fc-title{font-family:var(--font-title);font-size:18px;font-weight:700;color:#0D0D0D;margin-bottom:6px;text-align:center;}
+.fc-subtitle{font-size:13px;color:#999;text-align:center;margin-bottom:24px;}
+.fc-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:14px 20px 0;}
+.fc-table{width:100%;min-width:600px;border-collapse:collapse;font-size:13px;}
+.fc-table thead th{padding:16px 12px;font-size:13px;font-weight:700;color:#0D0D0D;border-bottom:2px solid #F2F2F2;text-align:center;vertical-align:bottom;}
+.fc-table thead th:first-child{text-align:left;width:38%;font-size:12px;color:#888;}
+.fc-table thead th.plan-hl{background:#F2F2F2;border-top:3px solid #BF8C80;border-radius:12px 12px 0 0;position:relative;}
+.fc-table thead th .plan-tag{display:block;font-size:11px;font-weight:500;color:#999;margin-top:2px;}
+.fc-table thead th .plan-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;padding:2px 10px;border-radius:20px;background:#BF8C80;color:#fff;white-space:nowrap;}
+.fc-table tr.cat-row td{padding:10px 12px;font-size:11px;font-weight:700;color:#BF8C80;background:#F2F2F2;border-bottom:1px solid #F2F2F2;letter-spacing:.3px;}
+.fc-table tbody td{padding:10px 12px;border-bottom:1px solid #f5f0eb;text-align:center;vertical-align:middle;color:#555;font-size:13px;}
+.fc-table tbody td:first-child{text-align:left;font-weight:500;color:#333;}
+.fc-table tbody td.col-hl{background:#FFFBF7;}
+.fc-ck{color:#BF8C80;font-weight:900;font-size:16px;}
+.fc-no{color:#ddd;font-size:14px;}
+.fc-val{font-size:12px;font-weight:600;color:#888;}
+.fc-val-hl{font-size:12px;font-weight:700;color:#BF8C80;display:inline-flex;align-items:center;gap:3px;}
+.fc-soon{font-size:10px;font-weight:600;color:#bbb;background:#f5f5f5;padding:2px 8px;border-radius:8px;}
+.fc-cta{display:flex;gap:10px;justify-content:center;padding:24px 20px 0;flex-wrap:wrap;}
+.fc-cta button,.fc-cta a{padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;border:none;transition:all .15s;}
+.fc-cta .cta-primary{background:#BF8C80;color:#fff;box-shadow:0 2px 8px rgba(204,148,134,.3);}
+.fc-cta .cta-primary:hover{background:#BF8C80;}
+.fc-cta .cta-secondary{background:#fff;color:#BF8C80;border:1.5px solid #BF8C80;}
+.fc-cta .cta-secondary:hover{background:#F2F2F2;}
+.fc-cta .cta-ghost{background:#f5f5f5;color:#888;}
+.fc-cta .cta-ghost:hover{background:#eee;}
+
+/* ── 文 모으기 ── */
+.earn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center;}
+.earn-card{padding:16px 8px;background:#FFFBF3;border:1px solid #F2F2F2;border-radius:12px;transition:all .15s;}
+.earn-card:hover{border-color:#BF8C80;transform:translateY(-1px);}
+.earn-coin-row{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:6px;}
+.earn-amount{font-size:20px;font-weight:900;color:#BF8C80;}
+.earn-label{font-size:11px;color:#888;line-height:1.5;}
+
+/* ── 충전 모달 ── */
+.charge-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:center;justify-content:center;}
+.charge-modal-overlay.active{display:flex;}
+.charge-modal{position:relative;background:#fff;border-radius:20px;padding:32px 28px;max-width:420px;width:92%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2);animation:modalUp .2s ease-out;max-height:90vh;overflow-y:auto;}
+.charge-modal .cm-close{position:absolute;top:12px;right:12px;width:32px;height:32px;border:none;background:transparent;font-size:18px;color:#999;cursor:pointer;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;line-height:1;padding:0;font-family:inherit;transition:all .15s;}
+.charge-modal .cm-close:hover{background:#F2F2F2;color:#333;}
+@keyframes modalUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.charge-modal .cm-icon{width:48px;height:48px;background:linear-gradient(145deg,#FBC49A 0%,#BF8C80 100%);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fff;margin-bottom:16px;}
+.charge-modal .cm-title{font-size:18px;font-weight:800;color:#0D0D0D;margin-bottom:4px;}
+.charge-modal .cm-price{font-size:28px;font-weight:900;color:#BF8C80;margin:12px 0 4px;}
+.charge-modal .cm-price span{font-size:14px;font-weight:500;color:#999;}
+.charge-modal .cm-btn{margin-top:16px;width:100%;padding:14px;background:#BF8C80;border:none;border-radius:12px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(204,148,134,.3);transition:all .15s;}
+.charge-modal .cm-btn:hover{background:#BF8C80;transform:translateY(-1px);}
+.charge-modal .cm-cancel{display:block;margin-top:12px;font-size:13px;color:#999;cursor:pointer;background:none;border:none;font-family:inherit;}
+.charge-modal .cm-cancel:hover{color:#666;}
+/* ── 디지털 상품 태그 ── */
+.cm-digital-tag{display:inline-block;margin-top:12px;padding:4px 14px;background:#f5f0eb;border-radius:20px;font-size:10px;font-weight:600;color:#999;letter-spacing:.3px;}
+
+/* ── 후원 섹션 ── */
+.sponsor-wrap{margin-top:40px;background:linear-gradient(135deg,#F2F2F2 0%,#FFFBF3 100%);border:1.5px solid #F2F2F2;border-radius:16px;padding:32px 24px;text-align:center;}
+.sponsor-title{font-family:var(--font-title);font-size:18px;font-weight:700;color:#0D0D0D;margin-bottom:4px;}
+.sponsor-subtitle{font-size:13px;color:#999;margin-bottom:24px;line-height:1.7;}
+.sponsor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
+.sponsor-card{padding:24px 16px;background:#fff;border:1.5px solid #F2F2F2;border-radius:14px;transition:all .2s;position:relative;}
+.sponsor-card:hover{border-color:#BF8C80;box-shadow:0 4px 16px rgba(204,148,134,.15);transform:translateY(-2px);}
+.sponsor-card.sp-highlight{border:2px solid #BF8C80;}
+.sponsor-card .sp-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:800;padding:2px 12px;border-radius:20px;background:#BF8C80;color:#fff;white-space:nowrap;}
+.sponsor-card .sp-emoji{font-size:28px;margin-bottom:8px;}
+.sponsor-card .sp-name{font-size:15px;font-weight:700;color:#BF8C80;margin-bottom:4px;}
+.sponsor-card .sp-amount{font-size:13px;font-weight:600;color:#333;margin-bottom:8px;}
+.sponsor-card .sp-desc{font-size:11px;color:#888;line-height:1.6;}
+.sponsor-benefits{display:flex;flex-direction:column;gap:8px;margin-bottom:24px;text-align:left;max-width:480px;margin-left:auto;margin-right:auto;}
+.sponsor-benefit{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#666;line-height:1.6;}
+.sponsor-benefit .sp-icon{flex-shrink:0;width:20px;height:20px;background:#F2F2F2;border:1px solid #F2F2F2;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;margin-top:1px;}
+.sponsor-cta{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:#BF8C80;color:#fff;border-radius:12px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 2px 8px rgba(204,148,134,.3);transition:all .15s;border:none;cursor:pointer;font-family:inherit;}
+.sponsor-cta:hover{background:#BF8C80;transform:translateY(-1px);box-shadow:0 4px 16px rgba(204,148,134,.3);}
+.sponsor-note{margin-top:12px;font-size:11px;color:#bbb;}
+
+/* ── 반응형 ── */
+@media(max-width:640px){
+  .pricing-cards{grid-template-columns:repeat(2,1fr);}
+  .charge-wrap{padding:20px 16px;}
+  .charge-row{padding:14px 16px;}
+  .charge-amount{font-size:15px;}
+  .charge-price{font-size:14px;}
+  .fc-wrap{padding:20px 0;margin-top:28px;}
+  .fc-scroll{padding:14px 12px 0;}
+  .fc-table{font-size:11.5px;min-width:480px;}
+  .fc-table thead th{font-size:10.5px;padding:10px 6px;}
+  .fc-table thead th:first-child{font-size:10.5px;width:34%;}
+  .fc-table tbody td{padding:7px 5px;font-size:11.5px;}
+  .fc-table tr.cat-row td{padding:8px 6px;font-size:10px;}
+  .fc-ck{font-size:14px;}
+  .fc-val,.fc-val-hl{font-size:11px;}
+  .fc-cta{flex-direction:column;align-items:stretch;padding:18px 16px 0;}
+  .fc-cta button,.fc-cta a{text-align:center;padding:12px 18px;font-size:13px;}
+  .earn-grid{grid-template-columns:repeat(2,1fr);}
+  .sponsor-grid{grid-template-columns:1fr;}
+  .sponsor-wrap{padding:24px 16px;}
+}
+@media(max-width:380px){
+  .pricing-cards{grid-template-columns:1fr;gap:10px;}
+  .pricing-card{padding:16px 14px;}
+  .pricing-card .pc-amount{font-size:20px;}
+  .fc-table{font-size:11px;min-width:420px;}
+  .fc-table thead th:first-child{width:36%;}
+  .charge-row{padding:12px 14px;flex-wrap:wrap;gap:8px;}
+}

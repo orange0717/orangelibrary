@@ -1,0 +1,58 @@
+/* ===== landing.css — 타깃별 랜딩 페이지 공통 스타일 ===== */
+
+/* --- Hero --- */
+.lp-hero{background:linear-gradient(135deg,#F2F2F2 0%,#FDE8D4 100%);padding:80px 24px 56px;text-align:center;}
+.lp-hero-icon{font-size:48px;margin-bottom:12px;}
+.lp-hero-badge{display:inline-block;background:#BF8C80;color:#fff;font-size:12px;font-weight:700;padding:4px 14px;border-radius:20px;margin-bottom:16px;letter-spacing:.5px;}
+.lp-hero h1{font-family:var(--font-title);font-size:32px;font-weight:800;color:#1a1a1a;line-height:1.35;margin:0 0 12px;}
+.lp-hero-sub{font-size:16px;color:#666;line-height:1.6;max-width:520px;margin:0 auto 28px;}
+.lp-hero .landing-cta-btn{font-size:16px;padding:14px 36px;}
+@media(max-width:640px){.lp-hero{padding:64px 20px 40px;}.lp-hero h1{font-size:24px;}.lp-hero-sub{font-size:14px;}}
+
+/* --- Breadcrumb --- */
+.lp-breadcrumb{max-width:960px;margin:0 auto;padding:12px 24px;font-size:12px;color:#aaa;}
+.lp-breadcrumb a{color:#999;text-decoration:none;}
+.lp-breadcrumb a:hover{color:#BF8C80;}
+
+/* --- Pain Point Cards --- */
+.lp-pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:840px;margin:0 auto;}
+.lp-pain-card{background:#fff;border-radius:14px;padding:28px 22px;border:1px solid #D9B7B0;text-align:center;transition:transform .2s;}
+.lp-pain-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(204,148,134,.1);}
+.lp-pain-num{width:36px;height:36px;border-radius:50%;background:#BF8C80;color:#fff;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.lp-pain-title{font-family:var(--font-title);font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:8px;}
+.lp-pain-desc{font-size:13px;color:#777;line-height:1.6;}
+@media(max-width:768px){.lp-pain-grid{grid-template-columns:1fr;max-width:400px;}}
+
+/* --- Feature Highlight --- */
+.lp-feature-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:20px;}
+.lp-feature-item{display:flex;align-items:flex-start;gap:18px;background:#fff;border-radius:14px;padding:22px 24px;border:1px solid #f0e6dd;transition:transform .2s;}
+.lp-feature-item:hover{transform:translateX(4px);box-shadow:0 4px 16px rgba(204,148,134,.08);}
+.lp-feature-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.lp-feature-name{font-family:var(--font-title);font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:4px;}
+.lp-feature-desc{font-size:13px;color:#777;line-height:1.6;}
+
+/* --- Before/After Demo --- */
+.lp-demo-wrap{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:800px;margin:0 auto;}
+.lp-demo-box{border-radius:14px;padding:24px;position:relative;}
+.lp-demo-before{background:#FFF0E5;border:1px solid #D9B7B0;}
+.lp-demo-after{background:#E8F5E9;border:1px solid #C8E6C9;}
+.lp-demo-label{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;margin-bottom:14px;letter-spacing:.5px;}
+.lp-demo-before .lp-demo-label{background:#D32F2F;color:#fff;}
+.lp-demo-after .lp-demo-label{background:#388E3C;color:#fff;}
+.lp-demo-text{font-size:14px;line-height:1.8;color:#333;}
+.lp-demo-text .lp-err{text-decoration:line-through;color:#D32F2F;background:#FFEBEE;padding:1px 4px;border-radius:3px;}
+.lp-demo-text .lp-fix{color:#388E3C;background:#E8F5E9;padding:1px 4px;border-radius:3px;font-weight:600;}
+@media(max-width:640px){.lp-demo-wrap{grid-template-columns:1fr;}}
+
+/* --- Social Proof Quote --- */
+.lp-quote{max-width:600px;margin:0 auto;background:#fff;border-radius:16px;padding:32px 28px;border-left:4px solid #BF8C80;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+.lp-quote-text{font-size:16px;color:#333;line-height:1.8;font-style:italic;margin-bottom:16px;}
+.lp-quote-text::before{content:'\201C';font-size:32px;color:#BF8C80;font-family:Georgia,serif;line-height:0;vertical-align:-8px;margin-right:4px;}
+.lp-quote-author{font-size:13px;color:#999;font-weight:500;}
+
+/* --- Pricing Mini --- */
+.lp-pricing-mini{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;max-width:600px;margin:0 auto;}
+.lp-pricing-card{background:#fff;border-radius:14px;padding:24px 20px;text-align:center;border:1px solid #D9B7B0;flex:1;min-width:160px;}
+.lp-pricing-card-title{font-size:13px;color:#999;margin-bottom:8px;font-weight:500;}
+.lp-pricing-card-value{font-family:var(--font-title);font-size:28px;font-weight:800;color:#BF8C80;margin-bottom:6px;}
+.lp-pricing-card-desc{font-size:12px;color:#aaa;line-height:1.5;}

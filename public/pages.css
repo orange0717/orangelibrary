@@ -1,0 +1,220 @@
+/**
+ * pages.css — 독립 페이지용 CSS 오버라이드
+ *
+ * style.css의 SPA 전용 규칙(overflow:hidden 등)을 독립 페이지에서 재정의.
+ */
+
+/* SPA의 overflow:hidden을 해제 */
+body.standalone-page,
+body.standalone-page html {
+  overflow: auto !important;
+  height: auto !important;
+}
+
+/* 페이지 컨텐츠 영역 */
+body.standalone-page .page-content {
+  margin-top: 56px; /* 헤더 높이 */
+  min-height: calc(100vh - 56px);
+  padding: 0;
+  overflow: auto;
+}
+
+body.standalone-page .page-content > div {
+  max-width: 100%;
+  margin: 0;
+  padding: 48px clamp(20px, 2.5vw, 48px);
+}
+
+/* 인덱스 랜딩: 히어로가 page-content 직접 자식 → 패딩 제거 */
+body.standalone-page .page-content > section.landing-hero-section {
+  margin: 0;
+  padding-top: 80px;
+  padding-bottom: 64px;
+}
+
+/* 독립 페이지에서 .page-section은 항상 보이기 */
+body.standalone-page .page-section {
+  display: block !important;
+  position: static !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  overflow: auto !important;
+}
+
+/* 모바일 네비 (독립 페이지용) */
+.mobile-nav-standalone {
+  display: none;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  background: #F2F2F2;
+  z-index: 199;
+  padding: 8px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  flex-direction: column;
+}
+.mobile-nav-standalone.open {
+  display: flex;
+}
+.mobile-nav-standalone .nav-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px 24px;
+  text-decoration: none;
+  color: #666;
+  font-size: 14px;
+  border: none;
+  background: none;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.mobile-nav-standalone .nav-btn.on {
+  color: #BF8C80;
+  font-weight: 700;
+}
+
+/* 독립 페이지 헤더의 nav-btn을 <a> 태그로 쓸 때 스타일 */
+body.standalone-page .hdr-nav .nav-btn {
+  text-decoration: none;
+}
+
+/* ══ SEO 공유 컴포넌트 ══ */
+
+/* 브레드크럼 */
+.sc-breadcrumb { font-size:12px; color:#bbb; margin-bottom:20px; }
+.sc-breadcrumb a { color:#bbb; text-decoration:none; }
+.sc-breadcrumb a:hover { color:#BF8C80; }
+
+/* 섹션 공통 */
+.seo-section { max-width:800px; margin:0 auto; padding:48px clamp(16px,2vw,48px); }
+.seo-section-title {
+  font-family:'Noto Serif KR',serif; font-size:22px; font-weight:700;
+  color:#0D0D0D; text-align:center; margin-bottom:32px;
+}
+
+/* 3단계 시각화 */
+.seo-steps { display:flex; align-items:center; justify-content:center; gap:0; flex-wrap:wrap; margin-bottom:16px; }
+.seo-step {
+  text-align:center; padding:20px 24px; background:#fff; border:1px solid #F2F2F2;
+  border-radius:12px; min-width:180px; flex:1;
+}
+.seo-step-num { font-size:11px; color:#BF8C80; font-weight:700; margin-bottom:4px; }
+.seo-step-label { font-size:15px; font-weight:700; color:#0D0D0D; margin-bottom:4px; }
+.seo-step-desc { font-size:12px; color:#999; }
+.seo-step-active { border-color:#BF8C80; background:#FFF8F2; }
+.seo-step-arrow { font-size:20px; color:#ccc; padding:0 8px; }
+
+/* 비교표 */
+.seo-table { width:100%; border-collapse:collapse; font-size:14px; }
+.seo-table th, .seo-table td { padding:12px 16px; text-align:left; border-bottom:1px solid #F2F2F2; }
+.seo-table th { background:#FAFAF8; font-weight:600; color:#666; font-size:13px; }
+.seo-table td:first-child { font-weight:500; color:#333; }
+.seo-table .check { color:#2E7D32; font-weight:700; }
+.seo-table .cross { color:#ccc; }
+
+/* CTA 박스 */
+.seo-cta-box {
+  text-align:center; padding:40px 24px; background:linear-gradient(135deg,#FFF8F2,#FFF0E8);
+  border-radius:16px; border:1px solid rgba(204,148,134,0.2);
+}
+.seo-cta-title { font-size:20px; font-weight:700; color:#0D0D0D; margin-bottom:8px; }
+.seo-cta-desc { font-size:14px; color:#888; margin-bottom:20px; }
+.seo-cta-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:14px 36px; font-size:15px; font-weight:700; color:#fff;
+  background:linear-gradient(135deg,#BF8C80,#BF8C80); border:none; border-radius:28px;
+  cursor:pointer; text-decoration:none; font-family:inherit; transition:transform .1s;
+}
+.seo-cta-btn:hover { transform:translateY(-1px); }
+.seo-cta-sub { font-size:12px; color:#bbb; margin-top:12px; }
+
+/* FAQ 아코디언 */
+.seo-faq-item { border-bottom:1px solid #F2F2F2; }
+.seo-faq-q {
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:16px 0; font-size:15px; font-weight:600; color:#333; cursor:pointer;
+  background:none; border:none; width:100%; text-align:left; font-family:inherit;
+}
+.seo-faq-q:hover { color:#BF8C80; }
+.seo-faq-arrow { font-size:18px; color:#ccc; transition:transform .2s; flex-shrink:0; }
+.seo-faq-item.open .seo-faq-arrow { transform:rotate(180deg); }
+.seo-faq-a { display:none; padding:0 0 16px; font-size:14px; line-height:1.8; color:#666; }
+.seo-faq-item.open .seo-faq-a { display:block; }
+
+/* AI 비교 배너 (검사 후 동적 노출) */
+.seo-ai-banner { display:none; margin:24px auto; max-width:960px; padding:0 clamp(16px,2vw,48px); }
+.seo-ai-banner-inner {
+  display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:16px;
+  overflow:hidden; border:1px solid #F2F2F2; background:#fff;
+}
+.seo-ai-col { padding:28px 24px; }
+.seo-ai-col-free { background:#FAFAF8; }
+.seo-ai-col-ai { background:linear-gradient(135deg,#FFF8F2,#FFF0E8); }
+.seo-ai-label {
+  display:inline-block; font-size:11px; font-weight:700; padding:4px 12px;
+  border-radius:12px; margin-bottom:12px;
+}
+.seo-ai-label-free { background:#E8E8E8; color:#888; }
+.seo-ai-label-ai { background:#BF8C80; color:#fff; }
+.seo-ai-title { font-size:16px; font-weight:700; color:#0D0D0D; margin-bottom:12px; }
+.seo-ai-list { list-style:none; padding:0; }
+.seo-ai-list li { font-size:13px; color:#666; padding:4px 0; }
+.seo-ai-list li::before { content:'✓ '; color:#2E7D32; font-weight:700; }
+.seo-ai-list-disabled li::before { content:'✗ '; color:#ccc; }
+.seo-ai-cta {
+  display:inline-flex; align-items:center; gap:6px;
+  margin-top:16px; padding:12px 28px; font-size:14px; font-weight:700;
+  color:#fff; background:linear-gradient(135deg,#BF8C80,#BF8C80);
+  border:none; border-radius:24px; cursor:pointer; text-decoration:none;
+  font-family:inherit; transition:transform .1s, box-shadow .2s;
+}
+.seo-ai-cta:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(204,148,134,0.3); }
+.seo-ai-msg { text-align:center; padding:16px 24px; font-size:14px; font-weight:600; color:#BF8C80; }
+
+/* 관련 도구 크로스 링크 */
+.seo-tools-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; }
+.seo-tool-card {
+  display:flex; align-items:center; gap:10px; padding:16px;
+  background:#fff; border:1px solid #F2F2F2; border-radius:12px;
+  text-decoration:none; transition:all .15s;
+}
+.seo-tool-card:hover { border-color:#BF8C80; background:#FFF8F2; }
+.seo-tool-icon { font-size:24px; }
+.seo-tool-name { font-size:14px; font-weight:600; color:#333; }
+.seo-tool-desc { font-size:11px; color:#999; }
+
+/* ══ 반응형 ══ */
+@media (max-width: 768px) {
+  body.standalone-page .hdr-nav { display: none; }
+  body.standalone-page .hamburger-btn { display: flex !important; }
+  .seo-ai-banner-inner { grid-template-columns:1fr; }
+  .seo-steps { flex-direction:column; }
+  .seo-step-arrow { transform:rotate(90deg); }
+  .seo-step { min-width:auto; width:100%; }
+}
+
+/* ══ 법률·정책 등 standalone 문서 페이지 모바일 가독성 ══ */
+@media (max-width: 640px) {
+  body.standalone-page .page-content > div {
+    padding: 24px 14px !important;
+  }
+  /* 인라인 padding:28px 카드형 섹션을 모바일에서 축소 */
+  body.standalone-page .page-content > div > div[style*="padding:28px"] {
+    padding: 18px 16px !important;
+    border-radius: 12px !important;
+  }
+  /* 본문 line-height 약간 줄여 화면 효율 */
+  body.standalone-page .page-content > div > div[style*="padding:28px"] > div[style*="line-height:2"] {
+    line-height: 1.85 !important;
+    font-size: 13.5px !important;
+  }
+}
+@media (max-width: 380px) {
+  body.standalone-page .page-content > div {
+    padding: 20px 12px !important;
+  }
+  body.standalone-page .page-content > div > div[style*="padding:28px"] {
+    padding: 16px 14px !important;
+  }
+}

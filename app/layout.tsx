@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Noto_Sans_KR, Noto_Serif_KR } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MaintenanceModal from "@/components/MaintenanceModal";
 import "./globals.css";
 
 const notoSansKr = Noto_Sans_KR({
@@ -160,6 +161,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <Header />
+        <MaintenanceModal />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>
